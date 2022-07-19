@@ -140,15 +140,16 @@ public class Affiliation {
 	
 	private String carica2role(String carica) {
 
+		
 		switch(carica) {
 		case("Membro"): return "member";
-		case("Presidente"): return "president";
+		case("Presidente"): return "head";
 		case("Segretario"): return "secretary";
 		case("Segretario d'Aula"): return "secretary";
 		case("Tesoriere"): return "member";
-		case("Vicepresidente"): return "vicePresident";
-		case("Vicepresidente Tesoriere"): return "vicePresident";
-		case("Vicepresidente Vicario"): return "vicePresident";
+		case("Vicepresidente"): return "deputyHead";
+		case("Vicepresidente Tesoriere"): return "deputyHead";
+		case("Vicepresidente Vicario"): return "deputyHead";
 		}
 
 
@@ -162,7 +163,6 @@ public class Affiliation {
 				carica.toLowerCase().startsWith("vice ministro"))
 			return "deputyMinister";
 
-		//System.err.println("find XSD role for "+carica);
 		return "member";
 
 	}

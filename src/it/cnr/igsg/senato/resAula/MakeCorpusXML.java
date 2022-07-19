@@ -511,7 +511,7 @@ public class MakeCorpusXML {
 			Element  org = targetCorpus.createElement("org");
 			org.setAttribute("xml:id", "group."+gruppoItem.getIdDenominazioneXML());
 			// FIXME: political_party? 
-			org.setAttribute("role", "politicalGroup");
+			org.setAttribute("role", "parliamentaryGroup");
 
 			Element  orgName = targetCorpus.createElement("orgName");
 			orgName.setAttribute("full", "yes");
@@ -520,7 +520,7 @@ public class MakeCorpusXML {
 			org.appendChild(orgName);
 
 			Element  orgNameAbbr = targetCorpus.createElement("orgName");
-			orgNameAbbr.setAttribute("full", "init");
+			orgNameAbbr.setAttribute("full", "abb");
 			orgNameAbbr.setTextContent(gruppoItem.getAbbreviazione());
 			org.appendChild(orgNameAbbr);
 
@@ -1603,8 +1603,9 @@ public class MakeCorpusXML {
 
 			Element  sex = targetCorpus.createElement("sex");
 			sex.setAttribute("value", senatoreItem.getSesso());
-			sex.setTextContent(senatoreItem.getSesso().equalsIgnoreCase("m")?"Maschio":"Femmina");
-			person.appendChild(sex);
+			// v2tov3 - change
+			//sex.setTextContent(senatoreItem.getSesso().equalsIgnoreCase("m")?"Maschio":"Femmina");
+			//person.appendChild(sex);
 
 			Element  birth = targetCorpus.createElement("birth");
 			birth.setAttribute("when", senatoreItem.getDataNascita());
@@ -1620,7 +1621,7 @@ public class MakeCorpusXML {
 			for(LegislativeTerm lt:senatoreItem.getListLegislativeTerms()) {
 				if(lt.getLegislatura().trim().length()>0) {
 					Element  affiliation = targetCorpus.createElement("affiliation");
-					affiliation.setAttribute("role", "MP");
+					affiliation.setAttribute("role", "member");
 					affiliation.setAttribute("ref", "#LEG");
 					if(lt.getInizioMandato().trim().length()>0)
 						affiliation.setAttribute("from",lt.getInizioMandato());
@@ -1638,13 +1639,56 @@ public class MakeCorpusXML {
 			if(groupAffiliations!=null) {
 				for(Affiliation aff:groupAffiliations) {
 					Element  affiliation = targetCorpus.createElement("affiliation");
-					// FIXME ROLE
-					affiliation.setAttribute("role", aff.getRole_XSD());
+					
+					if(aff.getRole_XSD().equals("primeMinister")) {
+						affiliation.setAttribute("role", "head");
+						
+						Element  roleName_en = targetCorpus.createElement("roleName");
+						roleName_en.setAttribute("xml:lang", "en");
+						roleName_en.setTextContent("President of the Council of Ministers");
+						
+						Element  roleName_it = targetCorpus.createElement("roleName");
+						roleName_it.setAttribute("xml:lang", "it");
+						roleName_it.setTextContent("Presidente del Consiglio dei Ministri");
+
+						affiliation.appendChild(roleName_en);
+						affiliation.appendChild(roleName_it);
+
+
+					}else if(aff.getRole_XSD().equals("deputyPrimeMinister")) {
+						affiliation.setAttribute("role", "deputyHead");
+						
+						Element  roleName_en = targetCorpus.createElement("roleName");
+						roleName_en.setAttribute("xml:lang", "en");
+						roleName_en.setTextContent("Vice President of the Council of Ministers");
+						
+						Element  roleName_it = targetCorpus.createElement("roleName");
+						roleName_it.setAttribute("xml:lang", "it");
+						roleName_it.setTextContent("Vice Presidente del Consiglio dei Ministri");
+
+						affiliation.appendChild(roleName_en);
+						affiliation.appendChild(roleName_it);
+						
+
+					}else {
+
+						affiliation.setAttribute("role", aff.getRole_XSD());
+					}
+					
 					if(!aff.getNomeGruppo().startsWith("GOV")) {
 						String idDenominazioneGruppo = dati.getLookupGruppobyName().get(aff.getNomeGruppo()).getIdDenominazioneXML();
 						affiliation.setAttribute("ref", /*"#group."*/"#group."+idDenominazioneGruppo);
 					}else {
-						affiliation.setAttribute("ref", "#"+aff.getNomeGruppo());
+						
+//						#GOV affiliations 
+//						<affiliation ref="#government"
+//	                               ana="#government.VladaCR.603"
+//	                               role="minister"
+//	                               from="2002-07-15T00:00:00"
+//	                               to="2004-08-04T11:00:00"/>
+						
+						affiliation.setAttribute("ref", "#GOV");
+						affiliation.setAttribute("ana", "#"+aff.getNomeGruppo());
 					}
 					if(aff.getInizioAdesione().trim().length()>0)
 						affiliation.setAttribute("from",aff.getInizioAdesione());
@@ -1652,15 +1696,26 @@ public class MakeCorpusXML {
 						affiliation.setAttribute("to",aff.getFineAdesione());
 					if(aff.getLegislatura().trim().length()>0)
 						affiliation.setAttribute("ana", "#LEG."+aff.getLegislatura());
+					
 					person.appendChild(affiliation);
 
+					
+					// FIX FOR ERROR[18] ParlaMint-IT: Missing implied affiliation role 'member'
+					
+					if(!affiliation.getAttribute("role").equals("member")) {
+						Element membershipAffiliation =  (Element) affiliation.cloneNode(true);
+						membershipAffiliation.setAttribute("role", "member");
+						person.appendChild(membershipAffiliation);
+					}
+						
 				}
 			}
 
 			// WEBSITE_LINK
 			for(LegislativeTerm lt:senatoreItem.getListLegislativeTerms()) {
 				Element  idno = targetCorpus.createElement("idno");
-				idno.setAttribute("type", "senato.it");
+				idno.setAttribute("type", "URI");
+				idno.setAttribute("subtype", "parliament");
 				idno.setAttribute("xml:lang", "it");
 				idno.setTextContent(lt.getUrlSchedaSenato());
 				person.appendChild(idno);
