@@ -1949,7 +1949,7 @@ public class MapEmbeddedXML {
 
 		Element  meeting_leg = targetDoc.createElement("meeting");
 		meeting_leg.setAttribute("n",legislatura+"-upper");
-		meeting_leg.setAttribute("ana", "#parla.upper #parla.term");
+		meeting_leg.setAttribute("ana", "#parla.upper #parla.term #LEG."+legislatura);
 		meeting_leg.setTextContent(legislatura+" Legislatura");
 
 		Element  meeting_sit = targetDoc.createElement("meeting");

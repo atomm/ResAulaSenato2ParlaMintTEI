@@ -48,6 +48,24 @@ public class MakeCorpusXML {
 		this.totalTags = totalTags;
 	}
 
+	
+	private String getIdGruppiList(String[] gruppiList) {
+		
+		HashMap<String, Gruppo> gruppi = dati.getLookupGruppobyName();
+	
+		String gruppi_ids = "";
+		for(String item: gruppiList) {
+			
+			if(gruppi.get(item)!=null)
+				gruppi_ids+="#group."+gruppi.get(item).getIdDenominazioneXML()+" ";
+			else
+				System.err.println("cannot find gruppo "+item);
+		}
+		gruppi_ids = gruppi_ids.trim();
+
+		return gruppi_ids; 
+	}
+	
 	public Document exportRelazioni(Document targetCorpus, Element appendTo) {
 		Element listRelation = targetCorpus.createElement("listRelation");
 
@@ -71,147 +89,246 @@ public class MakeCorpusXML {
 					relation.setAttribute("when", current.getInizio_denominazione());
 					listRelation.appendChild(relation);
 
-					//					String inizioAsString = den.getInizio_denominazione_asDate()!=null?den.getInizio_denominazione_asDate().toString():"-";
-					//					String fineAsString = den.getFine_denominazione_asDate()!=null?den.getFine_denominazione_asDate().toString():"-";
-					//					System.out.println(idGruppo+"\t"+den.getAbbreviazione()+"\t"+inizioAsString+"\t"+fineAsString);
 				}
 
 			}
 		}
-
-		// 2. COALITION RELATION 
+		
 
 		// LETTA.1
-		//		PD-PdL/NCD-SC-UdC-PpI-RI
-		//		con l'appoggio esterno di:
-		//		PSI-SVP-PATT-USEI-
-		//		MAIE-UV-CD-UpT-GAPP
+		String[] coalition_letta1_groups_1= {"Partito Democratico", "Il Popolo della Libertà", "Scelta Civica per l'Italia", "Per le Autonomie (SVP, UV, PATT, UPT) - PSI"};
+			
+			Element coalition_letta1_1 = targetCorpus.createElement("relation");
+			coalition_letta1_1.setAttribute("name", "coalition");
+			coalition_letta1_1.setAttribute("mutual",getIdGruppiList(coalition_letta1_groups_1));
+			coalition_letta1_1.setAttribute("from","2013-04-28");
+			coalition_letta1_1.setAttribute("to", "2013-07-09");
+			coalition_letta1_1.setAttribute("ana", "#GOV.LETTA.1");
+			listRelation.appendChild(coalition_letta1_1);
+		
+		
+		String[] coalition_letta1_groups_2= {"Partito Democratico", "Il Popolo della Libertà", "Scelta Civica per l'Italia", "Per le Autonomie (SVP-UV-PATT-UPT)-PSI-MAIE"};
+		
+			Element coalition_letta1_2 = targetCorpus.createElement("relation");
+			coalition_letta1_2.setAttribute("name", "coalition");
+			coalition_letta1_2.setAttribute("mutual",getIdGruppiList(coalition_letta1_groups_2));
+			coalition_letta1_2.setAttribute("from","2013-07-10");
+			coalition_letta1_2.setAttribute("to", "2013-11-19");
+			coalition_letta1_2.setAttribute("ana", "#GOV.LETTA.1");
+			listRelation.appendChild(coalition_letta1_2);
+		
+		String[] coalition_letta1_groups_3= {"Partito Democratico", "Nuovo Centrodestra", "Per l'Italia", "Per le Autonomie (SVP-UV-PATT-UPT)-PSI-MAIE"};
+		
+			Element coalition_letta1_3 = targetCorpus.createElement("relation");
+			coalition_letta1_3.setAttribute("name", "coalition");
+			coalition_letta1_3.setAttribute("mutual",getIdGruppiList(coalition_letta1_groups_3));
+			coalition_letta1_3.setAttribute("from","2013-11-20");
+			coalition_letta1_3.setAttribute("to", "2014-02-21");
+			coalition_letta1_3.setAttribute("ana", "#GOV.LETTA.1");
+			listRelation.appendChild(coalition_letta1_3);
+		
+		String[] opposition_letta1_groups_1= {"Lega Nord e Autonomie", "Movimento 5 Stelle"};
+		
+			Element opposition_letta1_1 = targetCorpus.createElement("relation");
+			opposition_letta1_1.setAttribute("name", "opposition");
+			opposition_letta1_1.setAttribute("active",getIdGruppiList(opposition_letta1_groups_1));
+			opposition_letta1_1.setAttribute("from","2013-04-28");
+			opposition_letta1_1.setAttribute("to", "2013-11-19");
+			opposition_letta1_1.setAttribute("passive", "#GOV.LETTA.1");
+			listRelation.appendChild(opposition_letta1_1);
+		
+		String[] opposition_letta1_groups_2= {"Forza Italia-Il Popolo della Libertà XVII Legislatura", "Lega Nord e Autonomie", "Movimento 5 Stelle"};
 
-		String[] coalition1_groups= {"Partito Democratico","Il Popolo della Libertà","Nuovo Centrodestra","Scelta Civica per l'Italia","Per le Autonomie (SVP, UV, PATT, UPT) - PSI"};
-
-		// RENZI.1			
-		//		PD-NCD-SC-UdC-Demo.S-CD-PSI
-		//		con l'appoggio esterno di:
-		//		ALA-SVP-PATT-UpT-
-		//		USEI-UV-ApI-IdV-MAIE
-
-		String[] coalition2_groups= {"Partito Democratico","Nuovo Centrodestra","Per l'Italia","Per le Autonomie (SVP-UV-PATT-UPT)-PSI-MAIE"};
-
+			Element opposition_letta1_2 = targetCorpus.createElement("relation");
+			opposition_letta1_2.setAttribute("name", "opposition");
+			opposition_letta1_2.setAttribute("active",getIdGruppiList(opposition_letta1_groups_2));
+			opposition_letta1_2.setAttribute("from","2013-11-20");
+			opposition_letta1_2.setAttribute("to", "2014-02-21");
+			opposition_letta1_2.setAttribute("passive", "#GOV.LETTA.1");
+			listRelation.appendChild(opposition_letta1_2);
+		
+		// RENZI.1
+			
+		String[] coalition_renzi1_groups_1= {"Partito Democratico", "Nuovo Centrodestra", "Per l'Italia", "Per le Autonomie (SVP-UV-PATT-UPT)-PSI-MAIE"};
+		
+			Element coalition_renzi1_1 = targetCorpus.createElement("relation");
+			coalition_renzi1_1.setAttribute("name", "coalition");
+			coalition_renzi1_1.setAttribute("mutual",getIdGruppiList(coalition_renzi1_groups_1));
+			coalition_renzi1_1.setAttribute("from","2014-02-22");
+			coalition_renzi1_1.setAttribute("to", "2014-12-10");
+			coalition_renzi1_1.setAttribute("ana", "#GOV.RENZI.1");
+			listRelation.appendChild(coalition_renzi1_1);
+		
+		
+		String[] coalition_renzi1_groups_2= {"Partito Democratico", "Area Popolare (NCD-UDC)", "Per l'Italia", "Per le Autonomie (SVP-UV-PATT-UPT)-PSI-MAIE"};
+		
+			Element coalition_renzi1_2 = targetCorpus.createElement("relation");
+			coalition_renzi1_2.setAttribute("name", "coalition");
+			coalition_renzi1_2.setAttribute("mutual",getIdGruppiList(coalition_renzi1_groups_2));
+			coalition_renzi1_2.setAttribute("from","2014-12-11");
+			coalition_renzi1_2.setAttribute("to", "2016-12-12");
+			coalition_renzi1_2.setAttribute("ana", "#GOV.RENZI.1");
+			listRelation.appendChild(coalition_renzi1_2);
+		
+		String[] opposition_renzi1_groups_1= {"Forza Italia-Il Popolo della Libertà XVII Legislatura", "Lega Nord e Autonomie", "Movimento 5 Stelle"};
+		
+			Element opposition_renzi1_1 = targetCorpus.createElement("relation");
+			opposition_renzi1_1.setAttribute("name", "opposition");
+			opposition_renzi1_1.setAttribute("active",getIdGruppiList(opposition_renzi1_groups_1));
+			opposition_renzi1_1.setAttribute("from","2014-02-22");
+			opposition_renzi1_1.setAttribute("to", "2016-12-12");
+			opposition_renzi1_1.setAttribute("passive", "#GOV.RENZI.1");
+			listRelation.appendChild(opposition_renzi1_1);
+		
+		
 		// GENTILONI.1
+		String[] coalition_gentiloni1_groups_1= {"Partito Democratico", "Per le Autonomie (SVP-UV-PATT-UPT)-PSI-MAIE"};
+		
+			Element coalition_gentiloni1_1 = targetCorpus.createElement("relation");
+			coalition_gentiloni1_1.setAttribute("name", "coalition");
+			coalition_gentiloni1_1.setAttribute("mutual",getIdGruppiList(coalition_gentiloni1_groups_1));
+			coalition_gentiloni1_1.setAttribute("from","2016-12-12");
+			coalition_gentiloni1_1.setAttribute("to", "2017-05-08");
+			coalition_gentiloni1_1.setAttribute("ana", "#GOV.GENTILONI.1");
+			listRelation.appendChild(coalition_gentiloni1_1);
+		
+		
+		String[] coalition_gentiloni1_groups_2= {"Partito Democratico", "Alternativa Popolare - Centristi per l'Europa - NCD", "Per le Autonomie (SVP-UV-PATT-UPT)-PSI-MAIE"};
+		
+			Element coalition_gentiloni1_2 = targetCorpus.createElement("relation");
+			coalition_gentiloni1_2.setAttribute("name", "coalition");
+			coalition_gentiloni1_2.setAttribute("mutual",getIdGruppiList(coalition_gentiloni1_groups_2));
+			coalition_gentiloni1_2.setAttribute("from","2017-05-09");
+			coalition_gentiloni1_2.setAttribute("to", "2018-03-22");
+			coalition_gentiloni1_2.setAttribute("ana", "#GOV.GENTILONI.1");
+			listRelation.appendChild(coalition_gentiloni1_2);
+		
+		String[] coalition_gentiloni1_groups_3= {"Partito Democratico", "Per le Autonomie (SVP-PATT, UV)"};
+		
+			Element coalition_gentiloni1_3 = targetCorpus.createElement("relation");
+			coalition_gentiloni1_3.setAttribute("name", "coalition");
+			coalition_gentiloni1_3.setAttribute("mutual",getIdGruppiList(coalition_gentiloni1_groups_3));
+			coalition_gentiloni1_3.setAttribute("from","2018-03-23");
+			coalition_gentiloni1_3.setAttribute("to", "2018-06-01");
+			coalition_gentiloni1_3.setAttribute("ana", "#GOV.GENTILONI.1");
+			listRelation.appendChild(coalition_gentiloni1_3);
+		
+		String[] opposition_gentiloni1_groups_1= {"Forza Italia-Il Popolo della Libertà XVII Legislatura", "Lega Nord e Autonomie", "Movimento 5 Stelle"};
+		
+			Element opposition_gentiloni1_1 = targetCorpus.createElement("relation");
+			opposition_gentiloni1_1.setAttribute("name", "opposition");
+			opposition_gentiloni1_1.setAttribute("active",getIdGruppiList(opposition_gentiloni1_groups_1));
+			opposition_gentiloni1_1.setAttribute("from","2016-12-12");
+			opposition_gentiloni1_1.setAttribute("to", "2017-02-27");
+			opposition_gentiloni1_1.setAttribute("passive", "#GOV.GENTILONI.1");
+			listRelation.appendChild(opposition_gentiloni1_1);
+	
+		
+		String[] opposition_gentiloni1_groups_2= {"Forza Italia-Il Popolo della Libertà XVII Legislatura", "Lega Nord e Autonomie", "Movimento 5 Stelle", "Articolo 1 - Movimento democratico e progressista"};
+		
+			Element opposition_gentiloni1_2 = targetCorpus.createElement("relation");
+			opposition_gentiloni1_2.setAttribute("name", "opposition");
+			opposition_gentiloni1_2.setAttribute("active",getIdGruppiList(opposition_gentiloni1_groups_2));
+			opposition_gentiloni1_2.setAttribute("from","2017-02-28");
+			opposition_gentiloni1_2.setAttribute("to", "2017-12-12");
+			opposition_gentiloni1_2.setAttribute("passive", "#GOV.GENTILONI.1");
+			listRelation.appendChild(opposition_gentiloni1_2);
+		
+		String[] opposition_gentiloni1_groups_3= {"Forza Italia-Il Popolo della Libertà XVII Legislatura", "Lega Nord e Autonomie", "Movimento 5 Stelle", "Articolo 1 - Movimento Democratico e Progressista - Liberi e Uguali"};
+		
+			Element opposition_gentiloni1_3 = targetCorpus.createElement("relation");
+			opposition_gentiloni1_3.setAttribute("name", "opposition");
+			opposition_gentiloni1_3.setAttribute("active",getIdGruppiList(opposition_gentiloni1_groups_3));
+			opposition_gentiloni1_3.setAttribute("from","2017-12-13");
+			opposition_gentiloni1_3.setAttribute("to", "2018-03-22");
+			opposition_gentiloni1_3.setAttribute("passive", "#GOV.GENTILONI.1");
+			listRelation.appendChild(opposition_gentiloni1_3);
+			
+		String[] opposition_gentiloni1_groups_4= {"Forza Italia-Berlusconi Presidente", "Lega-Salvini Premier", "Fratelli d'Italia", "MoVimento 5 Stelle"};
 
-		//		PD-NCD/AP-CpE-Demo.S-CD-PSI
-		//		con l'appoggio esterno di:
-		//		ALA-SC-MAIE-SVP-PATT-SA-
-		//		UV-IdV-UpT-USEI-Mod-LC-LPP
-
-		String[] coalition3_groups= {"Partito Democratico","Alternativa Popolare - Centristi per l'Europa - NCD", "Per le Autonomie (SVP-UV-PATT-UPT)-PSI-MAIE"};
-
-
+			Element opposition_gentiloni1_4 = targetCorpus.createElement("relation");
+			opposition_gentiloni1_4.setAttribute("name", "opposition");
+			opposition_gentiloni1_4.setAttribute("active",getIdGruppiList(opposition_gentiloni1_groups_4));
+			opposition_gentiloni1_4.setAttribute("from","2018-03-23");
+			opposition_gentiloni1_4.setAttribute("to", "2018-06-01");
+			opposition_gentiloni1_4.setAttribute("passive", "#GOV.GENTILONI.1");
+			listRelation.appendChild(opposition_gentiloni1_4);
+		
+		
 		// CONTE.1
+		String[] coalition_conte1_groups_1= {"MoVimento 5 Stelle", "Lega-Salvini Premier"};
+		
+			Element coalition_conte1_1 = targetCorpus.createElement("relation");
+			coalition_conte1_1.setAttribute("name", "coalition");
+			coalition_conte1_1.setAttribute("mutual",getIdGruppiList(coalition_conte1_groups_1));
+			coalition_conte1_1.setAttribute("from","2018-06-01");
+			coalition_conte1_1.setAttribute("to", "2018-07-29");
+			coalition_conte1_1.setAttribute("ana", "#GOV.CONTE.1");
+			listRelation.appendChild(coalition_conte1_1);
+		
+		String[] coalition_conte1_groups_2= {"MoVimento 5 Stelle", "Lega-Salvini Premier-Partito Sardo d'Azione"};
+		
+			Element coalition_conte1_2 = targetCorpus.createElement("relation");
+			coalition_conte1_2.setAttribute("name", "coalition");
+			coalition_conte1_2.setAttribute("mutual",getIdGruppiList(coalition_conte1_groups_2));
+			coalition_conte1_2.setAttribute("from","2018-07-30");
+			coalition_conte1_2.setAttribute("to", "2019-09-05");
+			coalition_conte1_2.setAttribute("ana", "#GOV.CONTE.1");
+			listRelation.appendChild(coalition_conte1_2);
+			
+		String[] opposition_conte1_groups_1= {"Partito Democratico", "Forza Italia-Berlusconi Presidente", "Fratelli d'Italia", "Per le Autonomie (SVP-PATT, UV)"};
 
-		//		M5S-Lega-MAIE
-		//		con l'appoggio esterno di:
-		//		PLI-PSd'Az-MNS
-
-		String[] coalition4_groups= {"MoVimento 5 Stelle","Lega-Salvini Premier",};
-
+			Element opposition_conte1_1 = targetCorpus.createElement("relation");
+			opposition_conte1_1.setAttribute("name", "opposition");
+			opposition_conte1_1.setAttribute("active",getIdGruppiList(opposition_conte1_groups_1));
+			opposition_conte1_1.setAttribute("from","2018-06-01");
+			opposition_conte1_1.setAttribute("to", "2019-09-05");
+			opposition_conte1_1.setAttribute("passive", "#GOV.CONTE.1");
+			listRelation.appendChild(opposition_conte1_1);
+		
 		// CONTE.2
+		String[] coalition_conte2_groups_1= {"MoVimento 5 Stelle", "Partito Democratico", "Per le Autonomie (SVP-PATT, UV)"};
+		
+			Element coalition_conte2_1 = targetCorpus.createElement("relation");
+			coalition_conte2_1.setAttribute("name", "coalition");
+			coalition_conte2_1.setAttribute("mutual",getIdGruppiList(coalition_conte2_groups_1));
+			coalition_conte2_1.setAttribute("from","2019-09-05");
+			coalition_conte2_1.setAttribute("to", "2019-09-17");
+			coalition_conte2_1.setAttribute("ana", "#GOV.CONTE.2");
+			listRelation.appendChild(coalition_conte2_1);
+		
+		
+		String[] coalition_conte2_groups_2= {"MoVimento 5 Stelle", "Partito Democratico", "Italia Viva - P.S.I.", "Per le Autonomie (SVP-PATT, UV)"};
+		
+			Element coalition_conte2_2 = targetCorpus.createElement("relation");
+			coalition_conte2_2.setAttribute("name", "coalition");
+			coalition_conte2_2.setAttribute("mutual",getIdGruppiList(coalition_conte2_groups_2));
+			coalition_conte2_2.setAttribute("from","2019-09-18");
+			coalition_conte2_2.setAttribute("to", "2021-02-12");
+			coalition_conte2_2.setAttribute("ana", "#GOV.CONTE.2");
+			listRelation.appendChild(coalition_conte2_2);
+		
+		String[] opposition_conte2_groups_1= {"Forza Italia-Berlusconi Presidente", "Lega-Salvini Premier-Partito Sardo d'Azione", "Fratelli d'Italia"};
+		
+			Element opposition_conte2_1 = targetCorpus.createElement("relation");
+			opposition_conte2_1.setAttribute("name", "opposition");
+			opposition_conte2_1.setAttribute("active",getIdGruppiList(opposition_conte2_groups_1));
+			opposition_conte2_1.setAttribute("from","2019-09-05");
+			opposition_conte2_1.setAttribute("to", "2019-12-10");
+			opposition_conte2_1.setAttribute("passive", "#GOV.CONTE.2");
+			listRelation.appendChild(opposition_conte2_1);
+		
+		
+		String[] opposition_conte2_groups_2= {"Forza Italia Berlusconi Presidente-UDC", "Lega-Salvini Premier-Partito Sardo d'Azione", "Fratelli d'Italia"};
 
-		//		M5S-PD-IV-LeU-MAIE
-		//		con l'appoggio esterno di:
-		//		PSI-CD-SVP-UV-
-		//		PATT-PP-AP-SF-CpE-Mod
-
-		String[] coalition5_groups= {"MoVimento 5 Stelle","Partito Democratico","Italia Viva - P.S.I.","Articolo 1 - Movimento Democratico e Progressista - Liberi e Uguali", "Per le Autonomie (SVP-PATT, UV)"};
-
-
-		HashMap<String, Gruppo> gruppi = dati.getLookupGruppobyName();
-
-		Element coalition1 = targetCorpus.createElement("relation");
-		coalition1.setAttribute("name", "coalition");
-
-		String coalition1_ids = "";
-		for(String item: coalition1_groups) {
-			coalition1_ids+="#group."+gruppi.get(item).getIdDenominazioneXML()+" ";
-		}
-		coalition1_ids = coalition1_ids.trim();
-
-		coalition1.setAttribute("mutual",coalition1_ids);
-		coalition1.setAttribute("from","2013-04-28");
-		coalition1.setAttribute("to", "2014-02-22");
-		coalition1.setAttribute("ana", "#GOV.LETTA.1");
-		listRelation.appendChild(coalition1);
-
-
-		Element coalition2 = targetCorpus.createElement("relation");
-		coalition2.setAttribute("name", "coalition");
-
-		String coalition2_ids = "";
-		for(String item: coalition2_groups) {
-			coalition2_ids+="#group."+gruppi.get(item).getIdDenominazioneXML()+" ";
-		}
-		coalition2_ids = coalition2_ids.trim();
-
-		coalition2.setAttribute("mutual",coalition2_ids);
-		coalition2.setAttribute("from","2014-02-22");
-		coalition2.setAttribute("to", "2016-12-12");
-		coalition2.setAttribute("ana", "#GOV.RENZI.1");
-		listRelation.appendChild(coalition2);
-
-
-
-		Element coalition3 = targetCorpus.createElement("relation");
-		coalition3.setAttribute("name", "coalition");
-
-		String coalition3_ids = "";
-		for(String item: coalition3_groups) {
-			coalition3_ids+="#group."+gruppi.get(item).getIdDenominazioneXML()+" ";
-		}
-		coalition3_ids = coalition3_ids.trim();
-
-		coalition3.setAttribute("mutual",coalition3_ids);
-		coalition3.setAttribute("from","2016-12-12");
-		coalition3.setAttribute("to", "2018-06-01");
-		coalition3.setAttribute("ana", "#GOV.GENTILONI.1");
-		listRelation.appendChild(coalition3);
-
-
-
-		Element coalition4 = targetCorpus.createElement("relation");
-		coalition4.setAttribute("name", "coalition");
-
-		String coalition4_ids = "";
-		for(String item: coalition4_groups) {
-			coalition4_ids+="#group."+gruppi.get(item).getIdDenominazioneXML()+" ";
-		}
-		coalition4_ids = coalition4_ids.trim();
-
-		coalition4.setAttribute("mutual",coalition4_ids);
-		coalition4.setAttribute("from","2018-06-01");
-		coalition4.setAttribute("to", "2019-09-05");
-		coalition4.setAttribute("ana", "#GOV.CONTE.1");
-		listRelation.appendChild(coalition4);
-
-
-		Element coalition5 = targetCorpus.createElement("relation");
-		coalition5.setAttribute("name", "coalition");
-
-		String coalition5_ids = "";
-		for(String item: coalition5_groups) {
-			coalition5_ids+="#group."+gruppi.get(item).getIdDenominazioneXML()+" ";
-		}
-		coalition5_ids = coalition5_ids.trim();
-
-		coalition5.setAttribute("mutual",coalition5_ids);
-		coalition5.setAttribute("from","2019-09-05");
-		coalition5.setAttribute("to","2021-02-12");
-		coalition5.setAttribute("ana", "#GOV.CONTE.2");
-		listRelation.appendChild(coalition5);
-
-		//        <relation name="coalition" mutual="#party.PS #party.SD #party.DL #party.DeSUS" from="2013-03-20" to="2014-09-18" ana="#GOV.11"/>
-		//        <relation name="coalition" mutual="#party.SMC.1 #party.SMC.2 #party.SD #party.DeSUS" from="2014-09-18" to="2018-09-12" ana="#GOV.12"/>
-		//        <relation name="coalition" mutual="#party.LMŠ #party.SMC.2 #party.SD #party.SAB #party.DeSUS" from="2018-09-13" to="2020-03-12" ana="#GOV.13"/>
-		//        <relation name="coalition" mutual="#party.SDS.2 #party.SMC.2 #party.NSi #party.DeSUS" from="2020-03-13" ana="#GOV.14"/>
+		
+			Element opposition_conte2_2 = targetCorpus.createElement("relation");
+			opposition_conte2_2.setAttribute("name", "opposition");
+			opposition_conte2_2.setAttribute("active",getIdGruppiList(opposition_conte2_groups_2));
+			opposition_conte2_2.setAttribute("from","2019-12-11");
+			opposition_conte2_2.setAttribute("to", "2021-02-12");
+			opposition_conte2_2.setAttribute("passive", "#GOV.CONTE.2");
+			listRelation.appendChild(opposition_conte2_2);
 
 
 
@@ -455,6 +572,7 @@ public class MakeCorpusXML {
 		Element  GOV5 = targetCorpus.createElement("event");
 		GOV5.setAttribute("xml:id", "GOV.CONTE.2");
 		GOV5.setAttribute("from", "2019-09-05");
+		GOV5.setAttribute("to", "2021-02-12");
 		Element  label5_IT = targetCorpus.createElement("label");
 		label5_IT.setAttribute("xml:lang", "it");
 		label5_IT.setTextContent("Governo Conte II (5 settembre 2019 - 12 febbraio 2021)");
@@ -583,15 +701,15 @@ public class MakeCorpusXML {
 		titleSubEN.setTextContent("Minutes of the Senate of the Italian Republic, terms 17 and 18 (2013 - 2020)");
 
 		Element  meeting17 = targetCorpus.createElement("meeting");
-		meeting17.setAttribute("n", "17");
+		meeting17.setAttribute("n", "17-upper");
 		meeting17.setAttribute("corresp", "#LEG");
-		meeting17.setAttribute("ana", "#parla.term #LEG.17");
+		meeting17.setAttribute("ana", "#parla.upper #parla.term #LEG.17");
 		meeting17.setTextContent("XVII Legislatura");
 
 		Element  meeting18 = targetCorpus.createElement("meeting");
-		meeting18.setAttribute("n", "18");
+		meeting18.setAttribute("n", "18-upper");
 		meeting18.setAttribute("corresp", "#LEG");
-		meeting18.setAttribute("ana", "#parla.term #LEG.18");
+		meeting18.setAttribute("ana", "#parla.upper #parla.term #LEG.18");
 		meeting18.setTextContent("XVIII Legislatura");
 
 
@@ -1385,8 +1503,8 @@ public class MakeCorpusXML {
 		taxonomy3.appendChild(desc_it_tax3);
 		taxonomy3.appendChild(desc_en_tax3);
 
-		taxonomy3.appendChild(getTaxonomyCategory(targetCorpus,"reference","Reference",": reference subcorpus, fino al 30-09-2019","Reference",": reference subcorpus, until 2019-09-30"));
-		taxonomy3.appendChild(getTaxonomyCategory(targetCorpus,"covid","COVID",": COVID subcorpus, dal 01-10-2019","COVID",": COVID subcorpus, from 2019-10-01 onwards"));
+		taxonomy3.appendChild(getTaxonomyCategory(targetCorpus,"reference","Reference",": reference subcorpus, fino al 31-10-2019","Reference",": reference subcorpus, until 2019-10-31"));
+		taxonomy3.appendChild(getTaxonomyCategory(targetCorpus,"covid","COVID",": COVID subcorpus, dal 01-11-2019","COVID",": COVID subcorpus, from 2019-11-01 onwards"));
 
 		// FIXME ADD CATEGORIES
 
@@ -1483,6 +1601,23 @@ public class MakeCorpusXML {
 	}
 
 
+	public Document makeTextClass(Document targetCorpus, Element appendTo) {
+
+		Element  textClass = targetCorpus.createElement("textClass");
+
+		
+		Element  catRef = targetCorpus.createElement("catRef");
+		catRef.setAttribute("scheme", "#parla.legislature");
+		catRef.setAttribute("target", "#parla.bi #parla.upper");
+		
+		textClass.appendChild(catRef);
+		
+
+		appendTo.appendChild(textClass);
+		return targetCorpus;
+	}
+
+	
 	//  <revisionDesc>
 	//  <change when="2020-12-10"><name>Tomaž Erjavec</name>: Made sample.</change>
 	//  <change when="2020-10-06">
@@ -1605,7 +1740,7 @@ public class MakeCorpusXML {
 			sex.setAttribute("value", senatoreItem.getSesso());
 			// v2tov3 - change
 			//sex.setTextContent(senatoreItem.getSesso().equalsIgnoreCase("m")?"Maschio":"Femmina");
-			//person.appendChild(sex);
+			person.appendChild(sex);
 
 			Element  birth = targetCorpus.createElement("birth");
 			birth.setAttribute("when", senatoreItem.getDataNascita());

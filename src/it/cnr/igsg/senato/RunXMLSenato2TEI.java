@@ -98,6 +98,8 @@ public class RunXMLSenato2TEI {
 			System.out.println(testFileName);
 
 		String legislatura = fields[2].substring(fields[2].indexOf("-")+1,fields[2].length());
+		
+		// corpus (reference/covid) comes from TSV
 		String corpus = fields[3];
 		String seduta = fields[6];
 		String data = fields[7];
@@ -111,6 +113,17 @@ public class RunXMLSenato2TEI {
 		// ParlaMint-IT_2020-05-06_LEG18-Sed-214
 		String TEIid = "ParlaMint-IT_"+year+"-"+month+"-"+day+"-LEG"+legislatura+"-Sed-"+seduta;
 		String TEIid4FileName = TEIid/*+"-"+idDoc*/;
+		
+		// subcorpus information goes in TEI/@ana and text/@ana
+		
+//		<TEI xmlns="http://www.tei-c.org/ns/1.0"
+//			     ana="#parla.meeting.regular #covid"
+//			     xml:id="ParlaMint-IT_2019-12-11-LEG18-Sed-172"
+//			     xml:lang="it">
+//		
+//		<text ana="#covid" xml:lang="it">
+//	      <body>
+		
 		String corpusAttribute = corpus.equalsIgnoreCase("covid")?"#covid":"#reference";
 
 
@@ -292,6 +305,9 @@ public class RunXMLSenato2TEI {
 			// settingDesc
 			targetCorpus = mcx.makeSettingDesc(targetCorpus, profileDesc);
 
+			targetCorpus = mcx.makeTextClass(targetCorpus, profileDesc);
+
+			
 
 			// particDesc
 			Element  particDesc = targetCorpus.createElement("particDesc");
