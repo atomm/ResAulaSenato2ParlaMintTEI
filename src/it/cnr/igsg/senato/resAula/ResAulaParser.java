@@ -407,7 +407,7 @@ public class ResAulaParser {
 	private static String flagCorpusforItem(ResAulaItem RA){
 
 
-		String corpusFlag = RA.getCorpus();
+		String corpusFlag = "";
 
 		Date startReferenceDate = null;
 		Date endReferenceDate = null;
@@ -415,9 +415,7 @@ public class ResAulaParser {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		try {
 			startReferenceDate = sdf.parse("20130101");
-			//startReferenceDate = sdf.parse("20150101");
-
-			endReferenceDate = sdf.parse("20190930");
+			endReferenceDate = sdf.parse("20191031");
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
@@ -439,10 +437,10 @@ public class ResAulaParser {
 
 
 			}catch(Exception ex) {
-
+				System.err.println("[ERROR] READING DATE IN flagCorpusforItem()");
 			}
 		}else {
-
+			System.err.println("[ERROR] READING DATE IN flagCorpusforItem()");
 			//System.err.println("empty date for "+RA.getDocId()+"."+RA.getExtension());
 		}
 

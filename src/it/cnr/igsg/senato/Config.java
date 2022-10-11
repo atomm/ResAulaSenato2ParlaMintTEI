@@ -8,11 +8,18 @@ public class Config {
 	
 	// phase 1 - source preprocessing and cleaning HTML to EMBEDDED_XML
 	
-	public static String RES_AULA_FOLDER = "data/Resaula-ParlaMINT/SOURCE"; 
-	public static String UNIQUE_GRID_CSV_PATH = "data/unique_grid.csv"; 
+	public static String RES_AULA_FOLDER = "data/Resaula-ParlaMINT/SOURCE-v3"; 
+	public static String UNIQUE_GRID_CSV_PATH = "data/unique_grid-v3.csv"; 
+	
+	
+//	public static String RES_AULA_FOLDER = "data/Resaula-ParlaMINT/SOURCE-v2"; 
+//	public static String UNIQUE_GRID_CSV_PATH = "data/unique_grid-v2.csv";
 
 	public static String CSV_OUT = "data/";	
-	public static String RES_AULA_EMBEDDED_XML = "data/Resaula-ParlaMINT/Resaula-embedded-XML"; 
+	public static String RES_AULA_EMBEDDED_XML = "data/Resaula-ParlaMINT/Resaula-embedded-XML-v3"; 
+	
+//	public static String RES_AULA_EMBEDDED_XML = "data/Resaula-ParlaMINT/Resaula-embedded-XML-v2"; 
+
 	public static String TXT_OUT = "data/txt/";
 
 
@@ -27,18 +34,13 @@ public class Config {
 
 	
 	// DATI SENATO
-	public static String SENATORI_TSV ="data/Resaula-ParlaMINT/dati_senato/senatori_leg17_e_leg18.tsv";
-	public static String OTHER_SPEAKERS_TSV ="data/Resaula-ParlaMINT/dati_senato/oratori_not_senato.tsv";
+	public static String SENATORI_TSV ="data/Resaula-ParlaMINT/dati_senato/senatori_leg17_e_leg18_v2.tsv";
+	public static String OTHER_SPEAKERS_TSV ="data/Resaula-ParlaMINT/dati_senato/oratori_not_senato_v2.tsv";
 	public static String TAB_GRUPPI_TSV ="data/Resaula-ParlaMINT/dati_senato/tab_denominazione_gruppi_17e18.tsv";
-	public static String GROUP_AFFILIATION_ALL_TSV ="data/Resaula-ParlaMINT/dati_senato/raw_affiliations_edit.tsv";
-	public static String GROUP_AFFILIATION_GOV_TSV ="data/Resaula-ParlaMINT/dati_senato/affiliazioni_GOV.tsv";
-	
-	
-//	public static String GROUP_AFFILIATION1_TSV ="data/Resaula-ParlaMINT/dati_senato/composizione_gruppi_inizio_leg17_e_leg18.tsv";
-//	public static String GROUP_AFFILIATION2_TSV ="data/Resaula-ParlaMINT/dati_senato/variazioni_gruppi_leg_17_e_leg18.tsv";
-//	public static String GROUP_AFFILIATION3_TSV ="data/Resaula-ParlaMINT/dati_senato/composizione_gruppi_fine_leg17_e_leg18.tsv";
+	//public static String GROUP_AFFILIATION_ALL_TSV ="data/Resaula-ParlaMINT/dati_senato/raw_affiliations_edit.tsv";
+	public static String GROUP_AFFILIATION_ALL_TSV ="data/Resaula-ParlaMINT/dati_senato/affiliazioni_gruppi_LEG17_LEG18_v2.tsv";
+	public static String GROUP_AFFILIATION_GOV_TSV ="data/Resaula-ParlaMINT/dati_senato/affiliazioni_GOV_v2.tsv";
 
-	
 
 	
 }

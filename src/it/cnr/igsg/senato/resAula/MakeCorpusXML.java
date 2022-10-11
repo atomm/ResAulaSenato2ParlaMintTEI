@@ -7,6 +7,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import it.cnr.igsg.senato.Config;
 import it.cnr.igsg.senato.datiSenato.Affiliation;
@@ -28,17 +29,7 @@ public class MakeCorpusXML {
 	HashMap<String,Integer> totalTags  = new HashMap<String,Integer>();
 	HashMap<String,Integer> totalExtent  = new HashMap<String,Integer>();
 
-	//	<listRelation>
-	//    <relation name="renaming" active="#party.SMC.2" passive="#party.SMC.1" when="2015-03-07"/>
-	//    <relation name="successor" active="#party.Levica.2" passive="#party.Levica.1" when="2017-06-24"/>
-	//    <relation name="renaming" active="#party.ZaSLD" passive="#party.ZaAB" when="2016-05-21"/>
-	//    <relation name="renaming" active="#party.SAB" passive="#party.ZaSLD" when="2017-10-07"/>
 
-	//    <relation name="coalition" mutual="#party.PS #party.SD #party.DL #party.DeSUS" from="2013-03-20" to="2014-09-18" ana="#GOV.11"/>
-	//    <relation name="coalition" mutual="#party.SMC.1 #party.SMC.2 #party.SD #party.DeSUS" from="2014-09-18" to="2018-09-12" ana="#GOV.12"/>
-	//    <relation name="coalition" mutual="#party.LMŠ #party.SMC.2 #party.SD #party.SAB #party.DeSUS" from="2018-09-13" to="2020-03-12" ana="#GOV.13"/>
-	//    <relation name="coalition" mutual="#party.SDS.2 #party.SMC.2 #party.NSi #party.DeSUS" from="2020-03-13" ana="#GOV.14"/>
-	//  </listRelation>
 
 	public void setTotalExtent(HashMap<String, Integer> totalExtent) {
 		this.totalExtent = totalExtent;
@@ -298,7 +289,7 @@ public class MakeCorpusXML {
 			listRelation.appendChild(coalition_conte2_1);
 		
 		
-		String[] coalition_conte2_groups_2= {"MoVimento 5 Stelle", "Partito Democratico", "Italia Viva - P.S.I.", "Per le Autonomie (SVP-PATT, UV)"};
+		String[] coalition_conte2_groups_2= {"MoVimento 5 Stelle", "Partito Democratico", "Italia Viva-P.S.I.", "Per le Autonomie (SVP-PATT, UV)"};
 		
 			Element coalition_conte2_2 = targetCorpus.createElement("relation");
 			coalition_conte2_2.setAttribute("name", "coalition");
@@ -330,7 +321,27 @@ public class MakeCorpusXML {
 			opposition_conte2_2.setAttribute("passive", "#GOV.CONTE.2");
 			listRelation.appendChild(opposition_conte2_2);
 
-
+			
+		// DRAGHI.1
+		String[] coalition_draghi1_groups_1= {"MoVimento 5 Stelle", "Partito Democratico", "Per le Autonomie (SVP-PATT, UV)", "Forza Italia-Berlusconi Presidente", "Lega-Salvini Premier-Partito Sardo d'Azione"};
+		
+			Element coalition_draghi1_1 = targetCorpus.createElement("relation");
+			coalition_draghi1_1.setAttribute("name", "coalition");
+			coalition_draghi1_1.setAttribute("mutual",getIdGruppiList(coalition_draghi1_groups_1));
+			coalition_draghi1_1.setAttribute("from","2021-02-13");
+			coalition_draghi1_1.setAttribute("to", "2022-10-30");
+			coalition_draghi1_1.setAttribute("ana", "#GOV.DRAGHI.1");
+			listRelation.appendChild(coalition_draghi1_1);
+			
+		String[] opposition_draghi1_groups_1= {"Fratelli d'Italia"};
+		
+			Element opposition_draghi1_1 = targetCorpus.createElement("relation");
+			opposition_draghi1_1.setAttribute("name", "opposition");
+			opposition_draghi1_1.setAttribute("active",getIdGruppiList(opposition_draghi1_groups_1));
+			opposition_draghi1_1.setAttribute("from","2021-02-13");
+			opposition_draghi1_1.setAttribute("to", "2022-10-30");
+			opposition_draghi1_1.setAttribute("passive", "#GOV.DRAGHI.1");
+			listRelation.appendChild(opposition_draghi1_1);
 
 		appendTo.appendChild(listRelation);
 
@@ -338,28 +349,6 @@ public class MakeCorpusXML {
 	}
 
 
-	// LEGISLATURE
-	//	 <org xml:id="DZ" role="parliament" ana="#parla.national #parla.lower">
-	//	     <orgName xml:lang="sl" full="yes">Državni zbor Republike Slovenije</orgName>
-	//	     <orgName xml:lang="en" full="yes">National Assembly of the Republic of Slovenia</orgName>
-	//	     <event from="1992-12-23">
-	//	        <label xml:lang="en">existence</label>
-	//	     </event>
-	//	     <idno type="wikimedia" xml:lang="sl">https://sl.wikipedia.org/wiki/Dr%C5%BEavni_zbor_Republike_Slovenije</idno>
-	//	     <idno type="wikimedia" xml:lang="en">https://en.wikipedia.org/wiki/National_Assembly_(Slovenia)</idno>
-	//	     <listEvent>
-	//	        <head xml:lang="sl">Mandatno obdobje</head>
-	//	        <head xml:lang="en">Legislative period</head>
-	//	        <event xml:id="DZ.7" from="2014-08-01" to="2018-06-21">
-	//	           <label xml:lang="sl">7. mandat</label>
-	//	           <label xml:lang="en">Term 7</label>
-	//	        </event>
-	//	        <event xml:id="DZ.8" from="2018-06-22">
-	//	           <label xml:lang="sl">8. mandat</label>
-	//	           <label xml:lang="en">Term 8</label>
-	//	        </event>
-	//	     </listEvent>
-	//     </org>
 
 
 
@@ -419,6 +408,7 @@ public class MakeCorpusXML {
 		Element  LEG18 = targetCorpus.createElement("event");
 		LEG18.setAttribute("xml:id", "LEG.18");
 		LEG18.setAttribute("from", "2018-03-23");
+		LEG18.setAttribute("to", "2022-09-24");
 		Element  label2_IT = targetCorpus.createElement("label");
 		label2_IT.setAttribute("xml:lang", "it");
 		label2_IT.setTextContent("XVIII Legislatura");
@@ -443,35 +433,7 @@ public class MakeCorpusXML {
 	}
 
 
-	//	organizations
 
-	//    <org xml:id="GOV" role="government">
-	//    <orgName xml:lang="sl" full="yes">Vlada Republike Slovenije</orgName>
-	//    <orgName xml:lang="en" full="yes">Government of the Republic of Slovenia</orgName>
-	//    <event from="1990-05-16">
-	//       <label xml:lang="en">existence</label>
-	//    </event>
-	//    <idno type="wikimedia" xml:lang="sl">https://sl.wikipedia.org/wiki/Vlada_Republike_Slovenije</idno>
-	//    <idno type="wikimedia" xml:lang="en">https://en.wikipedia.org/wiki/Government_of_Slovenia</idno>
-	//    <listEvent>
-	//       <event xml:id="GOV.11" from="2013-03-20" to="2014-09-18">
-	//          <label xml:lang="sl">11. vlada Republike Slovenije (20. marec 2013 - 18. september 2014)</label>
-	//          <label xml:lang="en">11th Government of the Republic of Slovenia (20 March 2013 - 18 September 2014)</label>
-	//       </event>
-	//       <event xml:id="GOV.12" from="2014-09-18" to="2018-09-13">
-	//          <label xml:lang="sl">12. vlada Republike Slovenije (18. september 2014 - 13. september 2018)</label>
-	//          <label xml:lang="en">12th Government of the Republic of Slovenia (18 September 2014 - 13 September 2018)</label>
-	//       </event>
-	//       <event xml:id="GOV.13" from="2018-09-13" to="2018-03-13">
-	//          <label xml:lang="sl">13. vlada Republike Slovenije (13. september 2018 - 13. marec 2020)</label>
-	//          <label xml:lang="en">13th Government of the Republic of Slovenia (13 September 2018 - 13 March 2020)</label>
-	//       </event>
-	//       <event xml:id="GOV.14" from="2018-03-13">
-	//          <label xml:lang="sl">14. vlada Republike Slovenije (13. marec 2020 - danes)</label>
-	//          <label xml:lang="en">14th Government of the Republic of Slovenia (March 13, 2020 - today)</label>
-	//       </event>
-	//    </listEvent>
-	// </org>
 
 	public Document exportGovernments(Document targetCorpus, Element appendTo) {
 
@@ -581,13 +543,22 @@ public class MakeCorpusXML {
 		label5_EN.setAttribute("xml:lang", "en");
 		label5_EN.setTextContent("Government Conte II (5 September 2019 - 12 February 2021)");
 		GOV5.appendChild(label5_EN);
-
-		//	/ RENZI / GENTILONI / CONTEI / CONTEII
-
-		//		<event xml:id="GOV.11" from="2013-03-20" to="2014-09-18">
-		//      <label xml:lang="sl">11. vlada Republike Slovenije (20. marec 2013 - 18. september 2014)</label>
-		//      <label xml:lang="en">11th Government of the Republic of Slovenia (20 March 2013 - 18 September 2014)</label>
-		//   </event>
+		
+		
+		// FIXME data fine gov draghi non si sa (vedi anche affiliazioni_gov_v2.tsv)
+		//DRAGHI1 
+		Element  GOV6 = targetCorpus.createElement("event");
+		GOV6.setAttribute("xml:id", "GOV.DRAGHI.1");
+		GOV6.setAttribute("from", "2021-02-13");
+		GOV6.setAttribute("to", "2022-10-30");
+		Element  label6_IT = targetCorpus.createElement("label");
+		label6_IT.setAttribute("xml:lang", "it");
+		label6_IT.setTextContent("Governo Draghi I (13 febbraio 2021 - 30 ottobre 2022)");
+		GOV6.appendChild(label6_IT);
+		Element  label6_EN = targetCorpus.createElement("label");
+		label6_EN.setAttribute("xml:lang", "en");
+		label6_EN.setTextContent("Government Draghi I (13 February 2021 - 30 October 2022)");
+		GOV6.appendChild(label6_EN);
 
 
 		listEvent.appendChild(GOV1);
@@ -595,6 +566,7 @@ public class MakeCorpusXML {
 		listEvent.appendChild(GOV3);
 		listEvent.appendChild(GOV4);
 		listEvent.appendChild(GOV5);
+		listEvent.appendChild(GOV6);
 
 		org.appendChild(listEvent);
 
@@ -693,12 +665,12 @@ public class MakeCorpusXML {
 		Element  titleSubIT = targetCorpus.createElement("title");
 		titleSubIT.setAttribute("type", "sub");
 		titleSubIT.setAttribute("xml:lang", "it");
-		titleSubIT.setTextContent("Resoconti del Senato della Repubblica italiana, legislature XVII e XVIII (2013 - 2020)");
+		titleSubIT.setTextContent("Resoconti del Senato della Repubblica italiana, legislature XVII e XVIII (2013 - 2022)");
 
 		Element  titleSubEN = targetCorpus.createElement("title");
 		titleSubEN.setAttribute("type", "sub");
 		titleSubEN.setAttribute("xml:lang", "en");
-		titleSubEN.setTextContent("Minutes of the Senate of the Italian Republic, terms 17 and 18 (2013 - 2020)");
+		titleSubEN.setTextContent("Minutes of the Senate of the Italian Republic, terms 17 and 18 (2013 - 2022)");
 
 		Element  meeting17 = targetCorpus.createElement("meeting");
 		meeting17.setAttribute("n", "17-upper");
@@ -887,44 +859,44 @@ public class MakeCorpusXML {
 		respLinguisticEN_1.setAttribute("xml:lang", "en");
 		respLinguisticEN_1.setTextContent("NER");
 
-		Element  respLinguisticIT_2 = targetCorpus.createElement("resp");
-		respLinguisticIT_2.setAttribute("xml:lang", "it");
-		respLinguisticIT_2.setTextContent("Allineamento Annotazione linguistica - Entità Nominate");
+//		Element  respLinguisticIT_2 = targetCorpus.createElement("resp");
+//		respLinguisticIT_2.setAttribute("xml:lang", "it");
+//		respLinguisticIT_2.setTextContent("Allineamento Annotazione linguistica - Entità Nominate");
+//
+//		Element  respLinguisticEN_2= targetCorpus.createElement("resp");
+//		respLinguisticEN_2.setAttribute("xml:lang", "en");
+//		respLinguisticEN_2.setTextContent("Linguistic annotation - NER Alignment");
 
-		Element  respLinguisticEN_2= targetCorpus.createElement("resp");
-		respLinguisticEN_2.setAttribute("xml:lang", "en");
-		respLinguisticEN_2.setTextContent("Linguistic annotation - NER Alignment");
-
-		respStmtLinguistic.appendChild(persNameVenturi);
-		respStmtLinguistic.appendChild(persNameCimino);
+		respStmtLinguistic.appendChild(persNameBartolini);
+		respStmtLinguistic.appendChild(persNameQuochi);
 
 
 		respStmtLinguistic.appendChild(respLinguisticIT_0);
 		respStmtLinguistic.appendChild(respLinguisticEN_0);
 		respStmtLinguistic.appendChild(respLinguisticIT_1);
 		respStmtLinguistic.appendChild(respLinguisticEN_1);
-		respStmtLinguistic.appendChild(respLinguisticIT_2);
-		respStmtLinguistic.appendChild(respLinguisticEN_2);
+//		respStmtLinguistic.appendChild(respLinguisticIT_2);
+//		respStmtLinguistic.appendChild(respLinguisticEN_2);
 
 
 
 		//////////////////////////////////////////
 
-		// ANA
-		Element  respStmtANA = targetCorpus.createElement("respStmt");
-		Element  respANA_IT = targetCorpus.createElement("resp");
-		respANA_IT.setAttribute("xml:lang", "it");
-		respANA_IT.setTextContent("Conversione annotazione linguistica: da CoNLL-U a ParlaMint TEI XML");
-
-		Element  respANA_EN= targetCorpus.createElement("resp");
-		respANA_EN.setAttribute("xml:lang", "en");
-		respANA_EN.setTextContent("Conversion of the linguistic annotation: from CoNLL-U to ParlaMint TEI XML");
-
-		respStmtANA.appendChild(persNameBartolini);
-		respStmtANA.appendChild(persNameQuochi);
-
-		respStmtANA.appendChild(respANA_IT);
-		respStmtANA.appendChild(respANA_EN);
+//		// ANA
+//		Element  respStmtANA = targetCorpus.createElement("respStmt");
+//		Element  respANA_IT = targetCorpus.createElement("resp");
+//		respANA_IT.setAttribute("xml:lang", "it");
+//		respANA_IT.setTextContent("Conversione annotazione linguistica: da CoNLL-U a ParlaMint TEI XML");
+//
+//		Element  respANA_EN= targetCorpus.createElement("resp");
+//		respANA_EN.setAttribute("xml:lang", "en");
+//		respANA_EN.setTextContent("Conversion of the linguistic annotation: from CoNLL-U to ParlaMint TEI XML");
+//
+//		respStmtANA.appendChild(persNameBartolini);
+//		respStmtANA.appendChild(persNameQuochi);
+//
+//		respStmtANA.appendChild(respANA_IT);
+//		respStmtANA.appendChild(respANA_EN);
 
 		//////////////////////////////////////////
 
@@ -954,7 +926,7 @@ public class MakeCorpusXML {
 
 		if(ANA) {
 			titleStmt.appendChild(respStmtLinguistic);
-			titleStmt.appendChild(respStmtANA);
+			//titleStmt.appendChild(respStmtANA);
 		}
 
 
@@ -964,17 +936,8 @@ public class MakeCorpusXML {
 		//	2. <editionStmt>
 		Element  editionStmt = targetCorpus.createElement("editionStmt");
 		Element edition = targetCorpus.createElement("edition");
-		edition.setTextContent("2.0");
+		edition.setTextContent("2.1");
 		editionStmt.appendChild(edition);
-
-
-		// 3. <extent>
-		//		  <measure unit="speeches" quantity="75122" xml:lang="sl">75.122 govorov</measure>
-		//        <measure unit="speeches" quantity="75122" xml:lang="en">75,122 speeches</measure>
-		//        <measure unit="words" quantity="20190034" xml:lang="sl">20.190.034 besed</measure>
-		//        <measure unit="words" quantity="20190034" xml:lang="en">20,190,034 words</measure>
-		// numero di token e speeches
-
 
 
 
@@ -1088,8 +1051,8 @@ public class MakeCorpusXML {
 
 
 		Element date_pub = targetCorpus.createElement("date");
-		date_pub.setAttribute("when", "2021-02-01");
-		date_pub.setTextContent("2021-02-01");
+		date_pub.setAttribute("when", "2022-10-30");
+		date_pub.setTextContent("2022-10-30");
 
 
 
@@ -1100,23 +1063,6 @@ public class MakeCorpusXML {
 		publicationStmt.appendChild(date_pub);
 
 
-
-
-		//	<publicationStmt>
-		//      <publisher>
-		//         <orgName xml:lang="sl">Raziskovalna infrastrukutra CLARIN</orgName>
-		//         <orgName xml:lang="en">CLARIN research infrastructure</orgName>
-		//         <ref target="https://www.clarin.eu/">www.clarin.eu</ref>
-		//      </publisher>
-		//      <idno type="URL">https://github.com/clarin-eric/ParlaMint</idno>
-		//      <pubPlace><ref target="https://github.com/clarin-eric/ParlaMint">https://github.com/clarin-eric/ParlaMint</ref></pubPlace>  
-		//      <availability status="free">
-		//         <licence>http://creativecommons.org/licenses/by/4.0/</licence>
-		//         <p xml:lang="sl">To delo je ponujeno pod <ref target="http://creativecommons.org/licenses/by/4.0/">Creative Commons Priznanje avtorstva 4.0 mednarodna licenca</ref>.</p>
-		//         <p xml:lang="en">This work is licensed under the <ref target="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</ref>.</p>
-		//      </availability>
-		//      <date when="2020-12-10">2020-12-10</date>
-		//   </publicationStmt>
 
 
 		//  5. <sourceDesc>
@@ -1142,8 +1088,8 @@ public class MakeCorpusXML {
 
 		Element  date_bib = targetCorpus.createElement("date");
 		date_bib.setAttribute("from", "2013-03-15");
-		date_bib.setAttribute("to", "2020-11-18");
-		date_bib.setTextContent("15.3.2013 - 18.11.2020");
+		date_bib.setAttribute("to", "2022-09-20");
+		date_bib.setTextContent("15.3.2013 - 20.9.2022");
 
 		bibl.appendChild(title_it);
 		bibl.appendChild(title_en);
@@ -1586,8 +1532,8 @@ public class MakeCorpusXML {
 		country.setTextContent("Italia");
 		Element  date = targetCorpus.createElement("date");
 		date.setAttribute("from", "2013-03-15");
-		date.setAttribute("to", "2020-11-18");
-		date.setTextContent("15.3.2013 - 18.11.2020");
+		date.setAttribute("to", "2022-09-20");
+		date.setTextContent("15.3.2013 - 20.9.2022");
 
 		setting.appendChild(address);
 		setting.appendChild(city);
@@ -1720,11 +1666,6 @@ public class MakeCorpusXML {
 			Senatore senatoreItem = senatoriMap.get(idSenatore);
 			Element  person = targetCorpus.createElement("person");
 
-			String idSenatoreXML = idSenatore.substring(idSenatore.lastIndexOf("/")+1,idSenatore.length());
-
-
-			String speakerPrefix = dati.getSpeakerPrefix(idSenatore);
-
 			person.setAttribute("xml:id", dati.getIdSenatore2Readable().get(idSenatore)/*speakerPrefix+"."+idSenatoreXML*/);
 
 			Element  persName = targetCorpus.createElement("persName");
@@ -1769,81 +1710,80 @@ public class MakeCorpusXML {
 
 			// POLITICAL GROUP AFFILIATIONS
 			//<affiliation role="member" ref="#party.SAB" from="2018-06-22" to="2018-09-12" ana="#DZ.8"/>
-
+		
 			List<Affiliation> groupAffiliations = dati.getLookupAffiliationsbyId().get(idSenatore);
 			if(groupAffiliations!=null) {
 				for(Affiliation aff:groupAffiliations) {
 					Element  affiliation = targetCorpus.createElement("affiliation");
+					Element  implied_affiliation = targetCorpus.createElement("affiliation");
+
 					
-					if(aff.getRole_XSD().equals("primeMinister")) {
-						affiliation.setAttribute("role", "head");
+					if(!aff.getCarica().equalsIgnoreCase("membro")) {
+						affiliation.setAttribute("role", aff.getRole_XSD());
 						
 						Element  roleName_en = targetCorpus.createElement("roleName");
 						roleName_en.setAttribute("xml:lang", "en");
-						roleName_en.setTextContent("President of the Council of Ministers");
+						roleName_en.setTextContent(aff.getCarica_en());
 						
 						Element  roleName_it = targetCorpus.createElement("roleName");
 						roleName_it.setAttribute("xml:lang", "it");
-						roleName_it.setTextContent("Presidente del Consiglio dei Ministri");
+						roleName_it.setTextContent(aff.getCarica());
 
-						affiliation.appendChild(roleName_en);
 						affiliation.appendChild(roleName_it);
-
-
-					}else if(aff.getRole_XSD().equals("deputyPrimeMinister")) {
-						affiliation.setAttribute("role", "deputyHead");
-						
-						Element  roleName_en = targetCorpus.createElement("roleName");
-						roleName_en.setAttribute("xml:lang", "en");
-						roleName_en.setTextContent("Vice President of the Council of Ministers");
-						
-						Element  roleName_it = targetCorpus.createElement("roleName");
-						roleName_it.setAttribute("xml:lang", "it");
-						roleName_it.setTextContent("Vice Presidente del Consiglio dei Ministri");
-
-						affiliation.appendChild(roleName_en);
-						affiliation.appendChild(roleName_it);
-						
-
+						// SE DISPONIBILE VERSION ENG.
+						if(aff.getCarica_en()!=null && aff.getCarica_en().trim().length()>0) {
+							affiliation.appendChild(roleName_en);
+						}
 					}else {
-
 						affiliation.setAttribute("role", aff.getRole_XSD());
 					}
+					
+					implied_affiliation.setAttribute("role", "member");
 					
 					if(!aff.getNomeGruppo().startsWith("GOV")) {
 						String idDenominazioneGruppo = dati.getLookupGruppobyName().get(aff.getNomeGruppo()).getIdDenominazioneXML();
 						affiliation.setAttribute("ref", /*"#group."*/"#group."+idDenominazioneGruppo);
+						implied_affiliation.setAttribute("ref", /*"#group."*/"#group."+idDenominazioneGruppo);
 					}else {
-						
-//						#GOV affiliations 
-//						<affiliation ref="#government"
-//	                               ana="#government.VladaCR.603"
-//	                               role="minister"
-//	                               from="2002-07-15T00:00:00"
-//	                               to="2004-08-04T11:00:00"/>
-						
 						affiliation.setAttribute("ref", "#GOV");
 						affiliation.setAttribute("ana", "#"+aff.getNomeGruppo());
+						implied_affiliation.setAttribute("ref", "#GOV");
+						implied_affiliation.setAttribute("ana", "#"+aff.getNomeGruppo());
 					}
-					if(aff.getInizioAdesione().trim().length()>0)
+					
+					if(aff.getInizioAdesione().trim().length()>0) {
 						affiliation.setAttribute("from",aff.getInizioAdesione());
-					if(aff.getFineAdesione().trim().length()>0)
+						implied_affiliation.setAttribute("from",aff.getInizioAdesione());
+
+					}
+					if(aff.getFineAdesione().trim().length()>0) {
 						affiliation.setAttribute("to",aff.getFineAdesione());
-					if(aff.getLegislatura().trim().length()>0)
+						implied_affiliation.setAttribute("to",aff.getFineAdesione());
+					}
+					if(aff.getLegislatura().trim().length()>0) {
 						affiliation.setAttribute("ana", "#LEG."+aff.getLegislatura());
+						implied_affiliation.setAttribute("ana", "#LEG."+aff.getLegislatura());
+					}
 					
 					person.appendChild(affiliation);
 
 					
 					// FIX FOR ERROR[18] ParlaMint-IT: Missing implied affiliation role 'member'
 					
-					if(!affiliation.getAttribute("role").equals("member")) {
-						Element membershipAffiliation =  (Element) affiliation.cloneNode(true);
-						membershipAffiliation.setAttribute("role", "member");
-						person.appendChild(membershipAffiliation);
+					// FIXME dubbio su implied affiliation - vale per ogni ruolo diverso da member (es. head del gruppo richiede anche implied member del gruppo) o solo per membri del governo ? 
+					//
+					// https://clarin-eric.github.io/ParlaMint/#sec-affiliation
+					//
+					// An important point to note is that ParlaMint makes no assumptions on the interconnection between various roles, e.g. we do not assume that if somebody has a minister role 
+					// in the government that they are also a member of the government. Therefore it is necessary to specify all the desired affiliations with their particular roles, e.g. both 
+					// as minister and as member.
+					
+					if(!affiliation.getAttribute("role").equals("member")) {							
+						person.appendChild(implied_affiliation);
 					}
 						
 				}
+					
 			}
 
 			// WEBSITE_LINK
@@ -1862,104 +1802,15 @@ public class MakeCorpusXML {
 
 		}
 
-		//        </person>
-		//        <person xml:id="BahŽibertAnja">
-		//           <persName>
-		//              <surname>Bah</surname>
-		//              <surname>Žibert</surname>
-		//              <forename>Anja</forename>
-		//           </persName>
-		//           <sex value="F">ženski</sex>
-		//           <birth when="1973-06-27">
-		//              <placeName ref="https://www.geonames.org/3197753">Koper</placeName>
-		//           </birth>
-		//           <affiliation role="MP" ref="#DZ" from="2014-08-01" to="2018-06-21" ana="#DZ.7"/>
-		//           <affiliation role="member" ref="#party.SDS.2" from="2014-08-01" to="2018-06-21" ana="#DZ.7"/>
-		//           <affiliation role="MP" ref="#DZ" from="2018-06-22" ana="#DZ.8"/>
-		//           <affiliation role="member" ref="#party.SDS.2" from="2018-06-22" ana="#DZ.8"/>
-		//           <idno type="wikimedia" xml:lang="sl">https://sl.wikipedia.org/wiki/Anja_Bah_Žibert</idno>
-		//        </person>
+
 		return targetCorpus;
 	}
 
 
-	public void exportRawAffiliations() {
-
-
-		HashMap<String, Senatore> senatoriMap = dati.getLookupSenatore();
-		//System.err.println("UNIQUE SENATORI: "+senatoriMap.keySet().size());
-
-		for(String idSenatore:senatoriMap.keySet()) {
-			Senatore senatoreItem = senatoriMap.get(idSenatore);
-
-			String idSenatoreXML = idSenatore.substring(idSenatore.lastIndexOf("/")+1,idSenatore.length());
-			String speakerPrefix = dati.getSpeakerPrefix(idSenatore);
-
-			//person.setAttribute("xml:id", dati.getIdSenatore2Readable().get(idSenatore)/*speakerPrefix+"."+idSenatoreXML*/);
-
-
-			//			// LEGISLATIVE TERM AFFILIATIONS
-			//			for(LegislativeTerm lt:senatoreItem.getListLegislativeTerms()) {
-			//				// ci sono degli Speaker non parlamentari..
-			//				if(lt.getLegislatura().trim().length()>0) {
-			//					Element  affiliation = targetCorpus.createElement("affiliation");
-			//					affiliation.setAttribute("role", "MP");
-			//					// FIXME - legislatura ? #DZ?
-			//					affiliation.setAttribute("ref", "#LEG");
-			//					if(lt.getInizioMandato().trim().length()>0)
-			//						affiliation.setAttribute("from",lt.getInizioMandato());
-			//					if(lt.getFineMandato().trim().length()>0)
-			//						affiliation.setAttribute("to",lt.getFineMandato());
-			//					affiliation.setAttribute("ana", "#LEG."+lt.getLegislatura());
-			//					person.appendChild(affiliation);
-			//				}
-			//			}
-
-			// POLITICAL GROUP AFFILIATIONS
-			//<affiliation role="member" ref="#party.SAB" from="2018-06-22" to="2018-09-12" ana="#DZ.8"/>
-
-			List<Affiliation> groupAffiliations = dati.getLookupAffiliationsbyId().get(idSenatore);
-			if(groupAffiliations!=null) {
-				for(Affiliation aff:groupAffiliations) {
-
-					if(!aff.getNomeGruppo().startsWith("GOV")){
+	
 
 
 
-
-						String role = aff.getRole_XSD();
-						String idDenominazioneGruppo = 	dati.getLookupGruppobyName().get(aff.getNomeGruppo()).getIdDenominazioneXML();
-						String nomeGruppo = aff.getNomeGruppo();
-						String from = aff.getInizioAdesione();
-						String to = aff.getFineAdesione();
-						String legislat = aff.getLegislatura();
-						String urlScheda="";
-
-						// WEBSITE_LINK
-						for(LegislativeTerm lt:senatoreItem.getListLegislativeTerms()) {
-							if(lt.getLegislatura().equalsIgnoreCase(legislat));
-							urlScheda=lt.getUrlSchedaSenato();
-						}
-
-
-						System.out.println(idSenatore+Config.SEP
-								+dati.getIdSenatore2Readable().get(idSenatore)+Config.SEP
-								+role+Config.SEP
-								+idDenominazioneGruppo+Config.SEP
-								+nomeGruppo+Config.SEP
-								+from+Config.SEP
-								+to+Config.SEP
-								+legislat+Config.SEP
-								+urlScheda+Config.SEP
-								+aff.getProvenance());
-
-					}
-				}
-			}
-		}
-
-
-	}
 
 
 	public void Test() {

@@ -30,8 +30,10 @@ import it.cnr.igsg.senato.resAula.MapEmbeddedXML;
 public class RunXMLSenato2TEI {
 
 	// TRUE for  ANA version Resp Statements
+	// Switch PLAIN or ANA versions
 	private static boolean ANA = false;
-
+	
+	
 	private static HashMap<String,String> resAulaGrid;
 
 	public static void main(String[] args) {
@@ -43,25 +45,6 @@ public class RunXMLSenato2TEI {
 
 
 	private static void exportTEI() {
-
-		String[] testFiles= {"00698190.xml","01046694.xml","01155422.xml","01180442.xml"};
-
-
-		////////		EXPORT SELECTION in TEI
-		//		MapEmbeddedXML mex = new MapEmbeddedXML();
-		//		DatiSenato datiSenato = new DatiSenato();
-		//		mex.setDatiSenato(datiSenato);
-		//		createYearFolders(Config.RES_AULA_TEI_OUTPUT);  
-		//
-		//		// flag: corpus o reference ? 
-		//		// date / n. seduta? 
-		//		for(String testFileName: testFiles) {
-		//			String idDoc = testFileName.substring(0,testFileName.indexOf("."));
-		//			String tsvMeta = resAulaGrid.get(idDoc);
-		//			buildTeiDoc(mex, testFileName,tsvMeta, Config.RES_AULA_TEI_OUTPUT);
-		//		}
-
-
 
 		//// 	EXPORT ALL in TEI
 
@@ -152,7 +135,7 @@ public class RunXMLSenato2TEI {
 			teiHeader.appendChild(mex.createFileDesc(targetDoc,idDoc,legislatura,corpus,seduta,data, ANA));
 			teiHeader.appendChild(mex.createEncodingDesc(targetDoc));
 			teiHeader.appendChild(mex.createProfileDesc(targetDoc,data));
-			teiHeader.appendChild(mex.createRevisionDesc(targetDoc));
+			//teiHeader.appendChild(mex.createRevisionDesc(targetDoc));
 
 			TEI.appendChild(teiHeader);
 
@@ -334,14 +317,20 @@ public class RunXMLSenato2TEI {
 				Element xInclude = targetCorpus.createElement("xi:include");
 				String includeFileName = teiDocFile;
 				xInclude.setAttribute("xmlns:xi", "http://www.w3.org/2001/XInclude");
+				if(ANA)
+					includeFileName = includeFileName.replace("xml", "ana.xml");
+
 				xInclude.setAttribute("href", includeFileName);
 
 				teiCorpus.appendChild(xInclude);
 			}
 
 
+			if(!ANA)
+				writeXmlFile(targetCorpus, outFolder+"/"+"ParlaMint-IT.xml");
+			else
+				writeXmlFile(targetCorpus, outFolder+"/"+"ParlaMint-IT.ana.xml");
 
-			writeXmlFile(targetCorpus, outFolder+"/"+"ParlaMint-IT.xml");
 
 
 		} catch (Exception ex) {

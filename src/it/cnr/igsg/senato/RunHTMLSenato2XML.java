@@ -35,7 +35,7 @@ public class RunHTMLSenato2XML {
 	
 
 	
-	
+	// QUI ESTRAE DA SOURCE HTML il RESSTEN XML Embedded 
 	private static void export_EmbeddedXML_corpus(ResAulaParser rap) {
 		
 		int valid = 0;
@@ -53,8 +53,10 @@ public class RunHTMLSenato2XML {
 					referenceTokens+=tokens;
 				valid++;
 			}
-			else 
+			else {
+				System.err.println("[INVALID] "+ RA.getFilePath());
 				invalid++;
+			}
 		}
 		
 		System.out.println("++EMBEDDED XML++");
@@ -144,15 +146,18 @@ public class RunHTMLSenato2XML {
 					ResAulaItem RA = new ResAulaItem();
 					String docId = file.getName().substring(0,file.getName().indexOf("."));
 					String ext = file.getName().substring(file.getName().indexOf(".")+1);
+					// LEGISLATURA E CORPUS (COVID/REFERENCE) LI LEGGE DALLA GERARCHIA DELLE CARTELLE SU FILESYSTEM
 					String leg = file.getParentFile().getName();
-					String corpus = file.getParentFile().getParentFile().getName();
+					
+					// CORPUS (COVID/REFERENCE) TAGGATO IN ResAulaParser.flagCorpusforItem(ResAulaItem)
+
+					//String corpus = file.getParentFile().getParentFile().getName();
+					//RA.setCorpus(corpus);
+
 					RA.setDocId(docId);
 					RA.setExtension(ext);
 					RA.setLegislatura(leg);
-					RA.setCorpus(corpus);
 					RA.setFilePath(file.getPath());
-
-					//RA.setFilePath(file.getAbsolutePath());
 
 					parser.parse(file, RA);
 					

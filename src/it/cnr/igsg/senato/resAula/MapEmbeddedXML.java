@@ -2008,8 +2008,8 @@ public class MapEmbeddedXML {
 		Element  persNameBattistoni = targetDoc.createElement("persName");
 		persNameBattistoni.setTextContent("Roberto Battistoni");
 
-		Element  persNameCimino = targetDoc.createElement("persName");
-		persNameCimino.setTextContent("Andrea Cimino");
+//		Element  persNameCimino = targetDoc.createElement("persName");
+//		persNameCimino.setTextContent("Andrea Cimino");
 
 		Element  persNameBartolini = targetDoc.createElement("persName");
 		persNameBartolini.setTextContent("Roberto Bartolini");
@@ -2110,44 +2110,46 @@ public class MapEmbeddedXML {
 		respLinguisticEN_1.setAttribute("xml:lang", "en");
 		respLinguisticEN_1.setTextContent("NER");
 
-		Element  respLinguisticIT_2 = targetDoc.createElement("resp");
-		respLinguisticIT_2.setAttribute("xml:lang", "it");
-		respLinguisticIT_2.setTextContent("Allineamento Annotazione linguistica - Entità Nominate");
+//		Element  respLinguisticIT_2 = targetDoc.createElement("resp");
+//		respLinguisticIT_2.setAttribute("xml:lang", "it");
+//		respLinguisticIT_2.setTextContent("Allineamento Annotazione linguistica - Entità Nominate");
+//
+//		Element  respLinguisticEN_2= targetDoc.createElement("resp");
+//		respLinguisticEN_2.setAttribute("xml:lang", "en");
+//		respLinguisticEN_2.setTextContent("Linguistic annotation - NER Alignment");
 
-		Element  respLinguisticEN_2= targetDoc.createElement("resp");
-		respLinguisticEN_2.setAttribute("xml:lang", "en");
-		respLinguisticEN_2.setTextContent("Linguistic annotation - NER Alignment");
-
-		respStmtLinguistic.appendChild(persNameVenturi);
-		respStmtLinguistic.appendChild(persNameCimino);
-
+//		respStmtLinguistic.appendChild(persNameVenturi);
+//		respStmtLinguistic.appendChild(persNameCimino);
+		
+		respStmtLinguistic.appendChild(persNameBartolini);
+		respStmtLinguistic.appendChild(persNameQuochi);
 
 		respStmtLinguistic.appendChild(respLinguisticIT_0);
 		respStmtLinguistic.appendChild(respLinguisticEN_0);
 		respStmtLinguistic.appendChild(respLinguisticIT_1);
 		respStmtLinguistic.appendChild(respLinguisticEN_1);
-		respStmtLinguistic.appendChild(respLinguisticIT_2);
-		respStmtLinguistic.appendChild(respLinguisticEN_2);
+//		respStmtLinguistic.appendChild(respLinguisticIT_2);
+//		respStmtLinguistic.appendChild(respLinguisticEN_2);
 
 
 
 		//////////////////////////////////////////
 
 		// ANA
-		Element  respStmtANA = targetDoc.createElement("respStmt");
-		Element  respANA_IT = targetDoc.createElement("resp");
-		respANA_IT.setAttribute("xml:lang", "it");
-		respANA_IT.setTextContent("Conversione annotazione linguistica: da CoNLL-U a ParlaMint TEI XML");
-
-		Element  respANA_EN= targetDoc.createElement("resp");
-		respANA_EN.setAttribute("xml:lang", "en");
-		respANA_EN.setTextContent("Conversion of the linguistic annotation: from CoNLL-U to ParlaMint TEI XML");
-
-		respStmtANA.appendChild(persNameBartolini);
-		respStmtANA.appendChild(persNameQuochi);
-
-		respStmtANA.appendChild(respANA_IT);
-		respStmtANA.appendChild(respANA_EN);
+//		Element  respStmtANA = targetDoc.createElement("respStmt");
+//		Element  respANA_IT = targetDoc.createElement("resp");
+//		respANA_IT.setAttribute("xml:lang", "it");
+//		respANA_IT.setTextContent("Conversione annotazione linguistica: da CoNLL-U a ParlaMint TEI XML");
+//
+//		Element  respANA_EN= targetDoc.createElement("resp");
+//		respANA_EN.setAttribute("xml:lang", "en");
+//		respANA_EN.setTextContent("Conversion of the linguistic annotation: from CoNLL-U to ParlaMint TEI XML");
+//
+//		respStmtANA.appendChild(persNameBartolini);
+//		respStmtANA.appendChild(persNameQuochi);
+//
+//		respStmtANA.appendChild(respANA_IT);
+//		respStmtANA.appendChild(respANA_EN);
 
 		//////////////////////////////////////////
 
@@ -2197,7 +2199,7 @@ public class MapEmbeddedXML {
 		orgNameIT_4.setTextContent("Istituto di Informatica Giuridica e Sistemi Giudiziari del Consiglio Nazionale delle Ricerche (CNR-IGSG)");
 		Element  orgNameEN_4 = targetDoc.createElement("orgName");
 		orgNameEN_4.setAttribute("xml:lang", "en");
-		orgNameEN_4.setTextContent("Institute of Legal Information and Judicial Systems of the Italian National Research Council (CNR-IGSG)");
+		orgNameEN_4.setTextContent("Institute of Legal Informatics and Judicial Systems of the Italian National Research Council (CNR-IGSG)");
 		funder_4.appendChild(orgNameIT_4);
 		funder_4.appendChild(orgNameEN_4);
 
@@ -2218,7 +2220,7 @@ public class MapEmbeddedXML {
 
 		if(ANA) {
 			titleStmt.appendChild(respStmtLinguistic);
-			titleStmt.appendChild(respStmtANA);
+			//titleStmt.appendChild(respStmtANA);
 		}
 
 
@@ -2232,7 +2234,7 @@ public class MapEmbeddedXML {
 		//	2. <editionStmt>
 		Element  editionStmt = targetDoc.createElement("editionStmt");
 		Element edition = targetDoc.createElement("edition");
-		edition.setTextContent("2.0");
+		edition.setTextContent("2.1");
 		editionStmt.appendChild(edition);
 
 
@@ -2330,8 +2332,8 @@ public class MapEmbeddedXML {
 
 
 		Element date_pub = targetDoc.createElement("date");
-		date_pub.setAttribute("when", "2021-02-01");
-		date_pub.setTextContent("2021-02-01");
+		date_pub.setAttribute("when", "2022-10-30");
+		date_pub.setTextContent("2022-10-30");
 
 
 

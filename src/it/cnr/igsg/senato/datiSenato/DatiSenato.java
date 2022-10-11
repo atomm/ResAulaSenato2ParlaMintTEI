@@ -34,21 +34,7 @@ public class DatiSenato {
 	}
 	
 	
-	private void makeAffiliationLookup() {
-		// FIXME - dopo averli inseriti potrei ordinarli per data
-		//System.err.println("AFF length: "+raw_affiliations.size());
-		for(Affiliation A:raw_affiliations) {
-			String idSenatore = A.getIdSenatore();
-			if(lookupAffiliationsbyId.get(idSenatore)==null) {
-				List<Affiliation> affList = new ArrayList<Affiliation>();
-				affList.add(A);
-				lookupAffiliationsbyId.put(idSenatore, affList);
-			}else {
-				List<Affiliation> affList = lookupAffiliationsbyId.get(idSenatore);
-				affList.add(A);
-			}
-		}
-	}
+
 	
 	
 	private String getIdNumericoSen(String id) {
@@ -70,7 +56,7 @@ public class DatiSenato {
 		Senatore senatoreItem = lookupSenatore.get(idSpeaker);
 		
 		if(senatoreItem ==null) {
-			System.err.println(idSpeaker +"  NOT FOUND");
+			System.err.println("[ID_SPEAKER] "+idSpeaker +"  NOT FOUND");
 			return "err";
 		}
 		
@@ -290,7 +276,7 @@ public class DatiSenato {
 
 			while( ( line = reader.readLine() ) != null) {
 				// SKIP HEADER
-				if(!line.startsWith("idGruppo\tdenominazione")) {
+				if(!line.startsWith("idGruppo\tdenominazione") && !line.startsWith("#")) {
 					String[] fields = line.split("\t");
 				
 					String idGruppo = fields[0];
@@ -342,13 +328,11 @@ public class DatiSenato {
 		}
 		
 		
-		
 		File affiliationGov = new File(Config.GROUP_AFFILIATION_GOV_TSV);
 		if(!affiliationGov.exists()){
 			System.err.println(" PROBLEMS READING SOURCE FILE "+Config.GROUP_AFFILIATION_GOV_TSV);
 		}
-
-			
+	
 		// 1 Affiliation ALL
 		try{
 			BufferedReader reader = new BufferedReader( new FileReader(affiliationAll));
@@ -358,7 +342,7 @@ public class DatiSenato {
 
 			while( ( line = reader.readLine() ) != null) {
 				// SKIP HEADER
-				if(!line.startsWith("gruppo\tnomeGruppo")) {
+				if(!line.startsWith("gruppo\tnomeGruppo") && !line.startsWith("#")) {
 					String[] fields = line.split("\t");
 				
 					String nomeGruppo = fields[1];
@@ -366,9 +350,14 @@ public class DatiSenato {
 					if(idSenatore.startsWith("http"))
 						idSenatore = idSenatore.substring(idSenatore.lastIndexOf("/")+1,idSenatore.length());
 					String carica	= fields[5];
-					String inizio_adesione = fields[6];
-					String fine_adesione = fields[7];
-					String legislatura = fields[8];
+					String carica_en	= fields[6];
+					String inizio_adesione = fields[7];
+					String fine_adesione = fields[8];			
+					String legislatura = fields[9];
+					
+					if(legislatura.equalsIgnoreCase("18") && fine_adesione.trim().length()==0) {
+						fine_adesione = "2022-09-24"; // insediamento 19 legislatura
+					}
 					
 					
 					Affiliation A = new Affiliation();
@@ -378,6 +367,7 @@ public class DatiSenato {
 					A.setFineAdesione(fine_adesione);
 					A.setLegislatura(legislatura);
 					A.setCarica(carica);
+					A.setCarica_en(carica_en);
 					A.setProvenance("all");
 					
 					if(!raw_affiliations.contains(A))
@@ -391,9 +381,6 @@ public class DatiSenato {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
-		
-		
 		
 		// 2 Affiliation GOV
 		try{
@@ -412,9 +399,11 @@ public class DatiSenato {
 					String idSenatore	= fields[0];
 					if(idSenatore.startsWith("http"))
 						idSenatore = idSenatore.substring(idSenatore.lastIndexOf("/")+1,idSenatore.length());
-					String inizio_adesione = fields[3];
-					String fine_adesione = fields[4];
-					String carica = fields[2];
+					String inizio_adesione = fields[4];
+					String fine_adesione = fields[5];
+					String carica_it = fields[2];
+					String carica_en = fields[3];
+
 
 
 					Affiliation A = new Affiliation();
@@ -423,7 +412,9 @@ public class DatiSenato {
 					A.setInizioAdesione(inizio_adesione);
 					A.setFineAdesione(fine_adesione);
 					A.setLegislatura("");
-					A.setCarica(carica);
+					A.setCarica(carica_it);
+					A.setCarica_en(carica_en);
+
 					A.setProvenance("gov");
 
 					if(!raw_affiliations.contains(A))
@@ -437,199 +428,24 @@ public class DatiSenato {
 				
 	}
 	
-//	private void readRawAffiliationsTSV() {
-//		
-//		raw_affiliations = new ArrayList<Affiliation>();
-//
-////		Config.GROUP_AFFILIATION2_TSV;
-////		Config.GROUP_AFFILIATION3_TSV;
-//		
-//		File affiliationStart = new File(Config.GROUP_AFFILIATION1_TSV);
-//		if(!affiliationStart.exists()){
-//			System.err.println(" PROBLEMS READING SOURCE FILE "+Config.GROUP_AFFILIATION1_TSV);
-//		}
-//		
-//		File affiliationVar = new File(Config.GROUP_AFFILIATION2_TSV);
-//		if(!affiliationVar.exists()){
-//			System.err.println(" PROBLEMS READING SOURCE FILE "+Config.GROUP_AFFILIATION2_TSV);
-//		}
-//		
-//		File affiliationEnd = new File(Config.GROUP_AFFILIATION3_TSV);
-//		if(!affiliationEnd.exists()){
-//			System.err.println(" PROBLEMS READING SOURCE FILE "+Config.GROUP_AFFILIATION3_TSV);
-//		}
-//		
-//		File affiliationGov = new File(Config.GROUP_AFFILIATION_GOV_TSV);
-//		if(!affiliationGov.exists()){
-//			System.err.println(" PROBLEMS READING SOURCE FILE "+Config.GROUP_AFFILIATION_GOV_TSV);
-//		}
-//
-//			
-//		// 1 Affiliation START
-//		try{
-//			BufferedReader reader = new BufferedReader( new FileReader(affiliationStart));
-//			String line  = null;
-//			
-//			//gruppo	nomeGruppo	senatore	nome	cognome	carica	inizioAdesione	legislatura
-//
-//			while( ( line = reader.readLine() ) != null) {
-//				// SKIP HEADER
-//				if(!line.startsWith("gruppo\tnomeGruppo")) {
-//					String[] fields = line.split("\t");
-//				
-//					String nomeGruppo = fields[1];
-//					String idSenatore	= fields[2];
-//					if(idSenatore.startsWith("http"))
-//						idSenatore = idSenatore.substring(idSenatore.lastIndexOf("/")+1,idSenatore.length());
-//					String carica	= fields[5];
-//					String inizio_adesione = fields[6];
-//					String legislatura = fields[7];
-//					
-//					
-//					Affiliation A = new Affiliation();
-//					A.setNomeGruppo(nomeGruppo);
-//					A.setIdSenatore(idSenatore);
-//					A.setInizioAdesione(inizio_adesione);
-//					A.setFineAdesione("");
-//					A.setLegislatura(legislatura);
-//					A.setCarica(carica);
-//					A.setProvenance("inizio");
-//					
-//					if(!raw_affiliations.contains(A))
-//						raw_affiliations.add(A);
-//				}
-//			}
-//
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}
-//		
-//		
-//		// 2 Affiliation END
-//		try{
-//			BufferedReader reader = new BufferedReader( new FileReader(affiliationEnd));
-//			String line  = null;
-//
-//			//gruppo	nomeGruppo	senatore	nome	cognome	carica	inizioAdesione	legislatura
-//
-//			while( ( line = reader.readLine() ) != null) {
-//				// SKIP HEADER
-//				if(!line.startsWith("gruppo\tnomeGruppo")) {
-//					String[] fields = line.split("\t");
-//
-//					String nomeGruppo = fields[1];
-//					String idSenatore	= fields[2];
-//					if(idSenatore.startsWith("http"))
-//						idSenatore = idSenatore.substring(idSenatore.lastIndexOf("/")+1,idSenatore.length());
-//					String carica	= fields[5];
-//					String inizio_adesione = fields[6];
-//					String legislatura = fields[7];
-//
-//
-//					Affiliation A = new Affiliation();
-//					A.setNomeGruppo(nomeGruppo);
-//					A.setIdSenatore(idSenatore);
-//					A.setInizioAdesione(inizio_adesione);
-//					A.setFineAdesione("");
-//					A.setLegislatura(legislatura);
-//					A.setCarica(carica);
-//					A.setProvenance("fine");
-//					
-//					if(!raw_affiliations.contains(A))
-//						raw_affiliations.add(A);
-//				}
-//			}
-//
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}
-//		
-//		
-//		// 3 Affiliation VAR
-//		try{
-//			BufferedReader reader = new BufferedReader( new FileReader(affiliationVar));
-//			String line  = null;
-//
-//			//gruppo	nomeGruppo	senatore	nome	cognome	carica	inizioAdesione	legislatura
-//
-//			while( ( line = reader.readLine() ) != null) {
-//				// SKIP HEADER
-//				if(!line.startsWith("gruppo\tnomeGruppo")) {
-//					String[] fields = line.split("\t");
-//
-//					String nomeGruppo = fields[1];
-//					String idSenatore	= fields[2];
-//					if(idSenatore.startsWith("http"))
-//						idSenatore = idSenatore.substring(idSenatore.lastIndexOf("/")+1,idSenatore.length());
-//					String inizio_adesione = fields[5];
-//					String fine_adesione = fields[6];
-//					String carica = fields[7];
-//					String legislatura = fields[8];
-//
-//
-//					Affiliation A = new Affiliation();
-//					A.setNomeGruppo(nomeGruppo);
-//					A.setIdSenatore(idSenatore);
-//					A.setInizioAdesione(inizio_adesione);
-//					A.setFineAdesione(fine_adesione);
-//					A.setLegislatura(legislatura);
-//					A.setCarica(carica);
-//					A.setProvenance("variazione");
-//
-//					if(!raw_affiliations.contains(A))
-//						raw_affiliations.add(A);
-//				}
-//			}
-//
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}
-//
-//		
-//		// 4 Affiliation GOV
-//		try{
-//			BufferedReader reader = new BufferedReader( new FileReader(affiliationGov));
-//			String line  = null;
-//
-//			//idSpeaker	affilialtion_to	role	from	to
-//
-//
-//			while( ( line = reader.readLine() ) != null) {
-//				// SKIP HEADER
-//				if(!line.startsWith("idSpeaker\taffilialtion_to")) {
-//					String[] fields = line.split("\t");
-//
-//					String nomeGruppo = fields[1];
-//					String idSenatore	= fields[0];
-//					if(idSenatore.startsWith("http"))
-//						idSenatore = idSenatore.substring(idSenatore.lastIndexOf("/")+1,idSenatore.length());
-//					String inizio_adesione = fields[3];
-//					String fine_adesione = fields[4];
-//					String carica = fields[2];
-//
-//
-//					Affiliation A = new Affiliation();
-//					A.setNomeGruppo(nomeGruppo);
-//					A.setIdSenatore(idSenatore);
-//					A.setInizioAdesione(inizio_adesione);
-//					A.setFineAdesione(fine_adesione);
-//					A.setLegislatura("");
-//					A.setCarica(carica);
-//					A.setProvenance("gov");
-//
-//					if(!raw_affiliations.contains(A))
-//						raw_affiliations.add(A);
-//				}
-//			}
-//
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}
-//				
-//	}
 	
+	private void makeAffiliationLookup() {
+		// FIXME - dopo averli inseriti potrei ordinarli per data
+		//System.err.println("AFF length: "+raw_affiliations.size());
+		for(Affiliation A:raw_affiliations) {
+			String idSenatore = A.getIdSenatore();
+			if(lookupAffiliationsbyId.get(idSenatore)==null) {
+				List<Affiliation> affList = new ArrayList<Affiliation>();
+				affList.add(A);
+				lookupAffiliationsbyId.put(idSenatore, affList);
+			}else {
+				List<Affiliation> affList = lookupAffiliationsbyId.get(idSenatore);
+				affList.add(A);
+			}
+		}
+	}
 	
-		
+			
 	
 	public HashMap<String, Senatore> getLookupSenatore() {
 		return lookupSenatore;

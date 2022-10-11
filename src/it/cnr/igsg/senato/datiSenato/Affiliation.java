@@ -21,6 +21,7 @@ public class Affiliation {
 	private String inizioAdesione;
 	private String fineAdesione;
 	private String carica;
+	private String carica_en;
 	private String legislatura;
 	private String provenance;
 	
@@ -96,10 +97,18 @@ public class Affiliation {
 	public String getCarica() {
 		return carica;
 	}
+	public String getCarica_en() {
+		return carica_en;
+	}
 	public void setCarica(String carica) {
 		this.carica = carica;
 		this.role_XSD = carica2role(carica);
 	}
+	
+	public void setCarica_en(String carica_en) {
+		this.carica_en = carica_en;
+	}
+	
 	public String getLegislatura() {
 		return legislatura;
 	}
@@ -142,26 +151,31 @@ public class Affiliation {
 
 		
 		switch(carica) {
-		case("Membro"): return "member";
-		case("Presidente"): return "head";
-		case("Segretario"): return "secretary";
-		case("Segretario d'Aula"): return "secretary";
-		case("Tesoriere"): return "member";
-		case("Vicepresidente"): return "deputyHead";
-		case("Vicepresidente Tesoriere"): return "deputyHead";
-		case("Vicepresidente Vicario"): return "deputyHead";
+			case("Membro"): return "member";
+			case("Presidente"): return "head";
+			case("Presidente pro tempore"): return "head";
+			// FIXME
+			// https://clarin-eric.github.io/ParlaMint/#sec-affiliation
+			//case("Segretario"): return "secretary";
+			//case("Segretario d'Aula"): return "secretary";
+			case("Segretario"): return "member";
+			case("Segretario d'Aula"): return "member";
+			case("Tesoriere"): return "member";
+			case("Vicepresidente"): return "deputyHead";
+			case("Vicepresidente Tesoriere"): return "deputyHead";
+			case("Vicepresidente Vicario"): return "deputyHead";
 		}
 
 
 		if(carica.toLowerCase().startsWith("presidente del consiglio"))
-			return "primeMinister";
+			return "head";
 		if(carica.toLowerCase().startsWith("vice presidente del consiglio"))
-			return "deputyPrimeMinister";
+			return "deputyHead";
 		if(carica.toLowerCase().startsWith("ministr"))
 			return "minister";
 		if(carica.toLowerCase().startsWith("sottosegretar")||
 				carica.toLowerCase().startsWith("vice ministro"))
-			return "deputyMinister";
+			return "deputyHead";
 
 		return "member";
 
