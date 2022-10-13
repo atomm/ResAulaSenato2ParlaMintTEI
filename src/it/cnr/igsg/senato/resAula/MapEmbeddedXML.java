@@ -2234,7 +2234,7 @@ public class MapEmbeddedXML {
 		//	2. <editionStmt>
 		Element  editionStmt = targetDoc.createElement("editionStmt");
 		Element edition = targetDoc.createElement("edition");
-		edition.setTextContent("2.1");
+		edition.setTextContent("3.0");
 		editionStmt.appendChild(edition);
 
 

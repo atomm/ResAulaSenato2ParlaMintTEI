@@ -215,25 +215,47 @@ public class MakeCorpusXML {
 			listRelation.appendChild(opposition_gentiloni1_1);
 	
 		
+//		String[] opposition_gentiloni1_groups_2= {"Forza Italia-Il Popolo della Libertà XVII Legislatura", "Lega Nord e Autonomie", "Movimento 5 Stelle", "Articolo 1 - Movimento democratico e progressista"};
+//		
+//			Element opposition_gentiloni1_2 = targetCorpus.createElement("relation");
+//			opposition_gentiloni1_2.setAttribute("name", "opposition");
+//			opposition_gentiloni1_2.setAttribute("active",getIdGruppiList(opposition_gentiloni1_groups_2));
+//			opposition_gentiloni1_2.setAttribute("from","2017-02-28");
+//			opposition_gentiloni1_2.setAttribute("to", "2017-12-12");
+//			opposition_gentiloni1_2.setAttribute("passive", "#GOV.GENTILONI.1");
+//			listRelation.appendChild(opposition_gentiloni1_2);
+//		
+//		String[] opposition_gentiloni1_groups_3= {"Forza Italia-Il Popolo della Libertà XVII Legislatura", "Lega Nord e Autonomie", "Movimento 5 Stelle", "Articolo 1 - Movimento Democratico e Progressista - Liberi e Uguali"};
+//		
+//			Element opposition_gentiloni1_3 = targetCorpus.createElement("relation");
+//			opposition_gentiloni1_3.setAttribute("name", "opposition");
+//			opposition_gentiloni1_3.setAttribute("active",getIdGruppiList(opposition_gentiloni1_groups_3));
+//			opposition_gentiloni1_3.setAttribute("from","2017-12-13");
+//			opposition_gentiloni1_3.setAttribute("to", "2018-03-22");
+//			opposition_gentiloni1_3.setAttribute("passive", "#GOV.GENTILONI.1");
+//			listRelation.appendChild(opposition_gentiloni1_3);
+			
 		String[] opposition_gentiloni1_groups_2= {"Forza Italia-Il Popolo della Libertà XVII Legislatura", "Lega Nord e Autonomie", "Movimento 5 Stelle", "Articolo 1 - Movimento democratico e progressista"};
-		
+			
 			Element opposition_gentiloni1_2 = targetCorpus.createElement("relation");
 			opposition_gentiloni1_2.setAttribute("name", "opposition");
 			opposition_gentiloni1_2.setAttribute("active",getIdGruppiList(opposition_gentiloni1_groups_2));
 			opposition_gentiloni1_2.setAttribute("from","2017-02-28");
-			opposition_gentiloni1_2.setAttribute("to", "2017-12-12");
+			opposition_gentiloni1_2.setAttribute("to", "2018-03-22");
 			opposition_gentiloni1_2.setAttribute("passive", "#GOV.GENTILONI.1");
 			listRelation.appendChild(opposition_gentiloni1_2);
 		
-		String[] opposition_gentiloni1_groups_3= {"Forza Italia-Il Popolo della Libertà XVII Legislatura", "Lega Nord e Autonomie", "Movimento 5 Stelle", "Articolo 1 - Movimento Democratico e Progressista - Liberi e Uguali"};
-		
-			Element opposition_gentiloni1_3 = targetCorpus.createElement("relation");
-			opposition_gentiloni1_3.setAttribute("name", "opposition");
-			opposition_gentiloni1_3.setAttribute("active",getIdGruppiList(opposition_gentiloni1_groups_3));
-			opposition_gentiloni1_3.setAttribute("from","2017-12-13");
-			opposition_gentiloni1_3.setAttribute("to", "2018-03-22");
-			opposition_gentiloni1_3.setAttribute("passive", "#GOV.GENTILONI.1");
-			listRelation.appendChild(opposition_gentiloni1_3);
+			
+		// rimossa denominazione Articolo 1 - Movimento Democratico e Progressista - Liberi e Uguali in tab_denominazione_gruppi (non a affiliati)
+//		String[] opposition_gentiloni1_groups_3= {"Forza Italia-Il Popolo della Libertà XVII Legislatura", "Lega Nord e Autonomie", "Movimento 5 Stelle", "Articolo 1 - Movimento Democratico e Progressista - Liberi e Uguali"};
+//		
+//			Element opposition_gentiloni1_3 = targetCorpus.createElement("relation");
+//			opposition_gentiloni1_3.setAttribute("name", "opposition");
+//			opposition_gentiloni1_3.setAttribute("active",getIdGruppiList(opposition_gentiloni1_groups_3));
+//			opposition_gentiloni1_3.setAttribute("from","2017-12-13");
+//			opposition_gentiloni1_3.setAttribute("to", "2018-03-22");
+//			opposition_gentiloni1_3.setAttribute("passive", "#GOV.GENTILONI.1");
+//			listRelation.appendChild(opposition_gentiloni1_3);
 			
 		String[] opposition_gentiloni1_groups_4= {"Forza Italia-Berlusconi Presidente", "Lega-Salvini Premier", "Fratelli d'Italia", "MoVimento 5 Stelle"};
 
@@ -936,7 +958,7 @@ public class MakeCorpusXML {
 		//	2. <editionStmt>
 		Element  editionStmt = targetCorpus.createElement("editionStmt");
 		Element edition = targetCorpus.createElement("edition");
-		edition.setTextContent("2.1");
+		edition.setTextContent("3.0");
 		editionStmt.appendChild(edition);
 
 

@@ -360,6 +360,8 @@ public class RunXMLSenato2TEI {
 		createYearFolder("2018",outFolder);    		
 		createYearFolder("2019",outFolder);    		
 		createYearFolder("2020",outFolder);
+		createYearFolder("2021",outFolder);
+		createYearFolder("2022",outFolder);
 	}
 
 

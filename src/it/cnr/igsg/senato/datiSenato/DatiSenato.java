@@ -109,6 +109,12 @@ public class DatiSenato {
 					String idCamera = fields[14];
 					String urlSchedaSenato = fields[15];
 
+					
+					// FORZA FINE MANDATO legislatura 18
+					if(legislatura.equalsIgnoreCase("18") && fineMandato.trim().length()==0) {
+						fineMandato = "2022-09-24"; // giorno prima delle elezioni
+					}
+					
 
 					
 					Senatore S;
@@ -194,6 +200,11 @@ public class DatiSenato {
 					String cittaNascita_geoname = fields[11];	
 					String provinciaNascita= fields[12];	
 					String nazioneNascita= fields[13];
+					
+					// FORZA FINE MANDATO legislatura 18
+					if(legislatura.equalsIgnoreCase("18") && fineMandato.trim().length()==0) {
+						fineMandato = "2022-09-24"; // giorno prima delle elezioni
+					}
 
 					String urlSchedaPrefix = "http://www.senato.it/leg";
 					String idNumerico = getIdNumericoSen(id);id.substring(id.lastIndexOf("/")+1,id.length());
@@ -400,7 +411,9 @@ public class DatiSenato {
 					if(idSenatore.startsWith("http"))
 						idSenatore = idSenatore.substring(idSenatore.lastIndexOf("/")+1,idSenatore.length());
 					String inizio_adesione = fields[4];
+				
 					String fine_adesione = fields[5];
+					
 					String carica_it = fields[2];
 					String carica_en = fields[3];
 
