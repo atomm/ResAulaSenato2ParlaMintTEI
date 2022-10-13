@@ -29,7 +29,7 @@ idSpeaker	affilialtion_to	role	from	to
 33749	GOV.CONTE.1	presidente del Consiglio dei ministri	2018-06-01	2019-09-04
 33749	GOV.CONTE.2	presidente del Consiglio dei ministri	2019-09-05	2021-02-12
 4450	GOV.LETTA.1	sottosegretario di Stato per l'economia e le finanze	2013-05-03	2014-02-21
-29325	GOV.CONTE.1	sottosegretario di Stato per l'economia e le finanze	2018-06-01	2019-09-04
+29325	GOV.CONTE.1	sottosegretario di Stato per l'economia e le finanze	2018-06-13	2019-03-22
 29325	GOV.CONTE.1	vice ministro dell'economia e delle finanze	2019-03-22	2019-09-04
 29325	GOV.CONTE.2	sottosegretario di Stato per l'economia e le finanze	2019-09-13	2020-09-03
 29325	GOV.CONTE.2	vice ministro dell'economia e delle finanze	2020-09-03	2021-02-12
@@ -153,8 +153,8 @@ idSpeaker	affilialtion_to	role	from	to
 34693	GOV.CONTE.2	ministro dell'economia e delle finanze	2019-09-05	2021-02-12
 29393	GOV.CONTE.1	sottosegretario di Stato alla Presidenza del Consiglio dei ministri	2018-06-13	2019-09-04
 30752	GOV.RENZI.1	sottosegretario di Stato per i beni e le attività culturali e per il turismo	2014-02-28	2015-11-02
-32833	GOV.CONTE.1	sottosegretario di Stato per l'istruzione, l'università e la ricerca	2019-09-13	2020-01-10
-32833	GOV.CONTE.2	ministro dell'economia e delle finanze	2020-01-10	2021-02-12
+32833	GOV.CONTE.2	sottosegretario di Stato per l'istruzione, l'università e la ricerca	2019-09-13	2020-01-10
+32833	GOV.CONTE.2	ministro dell'istruzione	2020-01-10	2021-02-12
 25389	GOV.LETTA.1	sottosegretario di Stato per l'istruzione, l'università e la ricerca	2013-05-03	2014-02-21
 25389	GOV.RENZI.1	sottosegretario di Stato per l'istruzione, l'università e la ricerca	2014-02-28	2016-12-11
 25389	GOV.GENTILONI.1	sottosegretario di Stato per l'istruzione, l'università e la ricerca	2016-12-29	2018-05-31
@@ -187,7 +187,7 @@ idSpeaker	affilialtion_to	role	from	to
 30750	GOV.RENZI.1	sottosegretario di Stato per l'istruzione, l'università e la ricerca	2014-02-28	2014-09-19
 33754	GOV.CONTE.1	ministro per i beni e le attività culturali	2018-06-01	2019-09-04
 17690	GOV.LETTA.1	ministro delle infrastrutture e dei trasporti	2013-04-28	2014-02-21
-17690	GOV.LETTA.1	ministro delle infrastrutture e dei trasporti	2014-02-22	2015-03-20
+17690	GOV.RENZI.1	ministro delle infrastrutture e dei trasporti	2014-02-22	2015-03-20
 22932	GOV.LETTA.1	sottosegretario di Stato per la salute	2013-05-03	2014-02-21
 23041	GOV.CONTE.1	sottosegretario di Stato per gli affari esteri e la cooperazione internazionale	2018-06-13	2019-09-04
 25488	GOV.LETTA.1	sottosegretario di Stato per le infrastrutture e i trasporti	2013-05-03	2014-02-21
