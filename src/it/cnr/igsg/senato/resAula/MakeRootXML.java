@@ -351,7 +351,7 @@ public class MakeRootXML {
 			coalition_draghi1_1.setAttribute("name", "coalition");
 			coalition_draghi1_1.setAttribute("mutual",getIdGruppiList(coalition_draghi1_groups_1));
 			coalition_draghi1_1.setAttribute("from","2021-02-13");
-			coalition_draghi1_1.setAttribute("to", "2022-10-30");
+			coalition_draghi1_1.setAttribute("to", "2022-10-22");
 			coalition_draghi1_1.setAttribute("ana", "#GOV.DRAGHI.1");
 			listRelation.appendChild(coalition_draghi1_1);
 			
@@ -361,7 +361,7 @@ public class MakeRootXML {
 			opposition_draghi1_1.setAttribute("name", "opposition");
 			opposition_draghi1_1.setAttribute("active",getIdGruppiList(opposition_draghi1_groups_1));
 			opposition_draghi1_1.setAttribute("from","2021-02-13");
-			opposition_draghi1_1.setAttribute("to", "2022-10-30");
+			opposition_draghi1_1.setAttribute("to", "2022-10-22");
 			opposition_draghi1_1.setAttribute("passive", "#GOV.DRAGHI.1");
 			listRelation.appendChild(opposition_draghi1_1);
 
@@ -572,14 +572,14 @@ public class MakeRootXML {
 		Element  GOV6 = targetCorpus.createElement("event");
 		GOV6.setAttribute("xml:id", "GOV.DRAGHI.1");
 		GOV6.setAttribute("from", "2021-02-13");
-		GOV6.setAttribute("to", "2022-10-30");
+		GOV6.setAttribute("to", "2022-10-22");
 		Element  label6_IT = targetCorpus.createElement("label");
 		label6_IT.setAttribute("xml:lang", "it");
-		label6_IT.setTextContent("Governo Draghi I (13 febbraio 2021 - 30 ottobre 2022)");
+		label6_IT.setTextContent("Governo Draghi I (13 febbraio 2021 - 22 ottobre 2022)");
 		GOV6.appendChild(label6_IT);
 		Element  label6_EN = targetCorpus.createElement("label");
 		label6_EN.setAttribute("xml:lang", "en");
-		label6_EN.setTextContent("Government Draghi I (13 February 2021 - 30 October 2022)");
+		label6_EN.setTextContent("Government Draghi I (13 February 2021 - 22 October 2022)");
 		GOV6.appendChild(label6_EN);
 
 
