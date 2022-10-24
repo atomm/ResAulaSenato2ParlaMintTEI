@@ -17,11 +17,11 @@ import it.cnr.igsg.senato.datiSenato.LegislativeTerm;
 import it.cnr.igsg.senato.datiSenato.Senatore;
 import util.dom.UtilDom;
 
-public class MakeCorpusXML {
+public class MakeRootXML {
 
 	DatiSenato dati;
 
-	public MakeCorpusXML() {
+	public MakeRootXML() {
 		dati = new DatiSenato();
 		//Test();
 	}
@@ -676,13 +676,20 @@ public class MakeCorpusXML {
 		Element  titleMainIT = targetCorpus.createElement("title");
 		titleMainIT.setAttribute("type", "main");
 		titleMainIT.setAttribute("xml:lang", "it");
-		titleMainIT.setTextContent("Corpus parlamentare italiano ParlaMint-IT [ParlaMint]");
+		if(!ANA)
+			titleMainIT.setTextContent("Corpus parlamentare italiano ParlaMint-IT [ParlaMint]");
+		else
+			titleMainIT.setTextContent("Corpus parlamentare italiano ParlaMint-IT [ParlaMint.ana]");
 
 
 		Element  titleMainEN = targetCorpus.createElement("title");
 		titleMainEN.setAttribute("type", "main");
 		titleMainEN.setAttribute("xml:lang", "en");
-		titleMainEN.setTextContent("Italian parliamentary corpus ParlaMint-IT [ParlaMint]");
+		if(!ANA)
+			titleMainEN.setTextContent("Italian parliamentary corpus ParlaMint-IT [ParlaMint]");
+		else
+			titleMainEN.setTextContent("Italian parliamentary corpus ParlaMint-IT [ParlaMint.ana]");
+			
 
 		Element  titleSubIT = targetCorpus.createElement("title");
 		titleSubIT.setAttribute("type", "sub");
@@ -744,6 +751,10 @@ public class MakeCorpusXML {
 		Element  persNameAgnoloniORCID = targetCorpus.createElement("persName");
 		persNameAgnoloniORCID.setTextContent("Tommaso Agnoloni");
 		persNameAgnoloniORCID.setAttribute("ref", orcidAgnoloni);
+		
+		Element  persNameBartoliniORCID = targetCorpus.createElement("persName");
+		persNameBartoliniORCID.setTextContent("Roberto Bartolini");
+		//persNameAgnoloniORCID.setAttribute("ref", orcidAgnoloni);
 
 		Element  persNameFrontiniORCID = targetCorpus.createElement("persName");
 		persNameFrontiniORCID.setTextContent("Francesca Frontini");
@@ -803,6 +814,7 @@ public class MakeCorpusXML {
 		respProjectEN.setTextContent("Project set-up and methodology");
 
 		respStmtProject.appendChild(persNameAgnoloniORCID);
+		respStmtProject.appendChild(persNameBartoliniORCID);
 		respStmtProject.appendChild(persNameFrontiniORCID);
 		respStmtProject.appendChild(persNameMontemagniORCID);
 		respStmtProject.appendChild(persNameQuochiORCID);

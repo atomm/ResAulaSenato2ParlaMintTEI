@@ -1921,13 +1921,20 @@ public class MapEmbeddedXML {
 		Element  titleMainIT = targetDoc.createElement("title");
 		titleMainIT.setAttribute("type", "main");
 		titleMainIT.setAttribute("xml:lang", "it");
-		titleMainIT.setTextContent("Corpus parlamentare italiano ParlaMint-IT, Legislatura "+legislatura+", Seduta "+seduta+" [ParlaMint]");
+		if(!ANA)
+			titleMainIT.setTextContent("Corpus parlamentare italiano ParlaMint-IT, Legislatura "+legislatura+", Seduta "+seduta+" [ParlaMint]");
+		else
+			titleMainIT.setTextContent("Corpus parlamentare italiano ParlaMint-IT, Legislatura "+legislatura+", Seduta "+seduta+" [ParlaMint.ana]");
 
 
 		Element  titleMainEN = targetDoc.createElement("title");
 		titleMainEN.setAttribute("type", "main");
 		titleMainEN.setAttribute("xml:lang", "en");
-		titleMainEN.setTextContent("Italian parliamentary corpus ParlaMint-IT, Term "+legislatura+", Sitting "+seduta+" [ParlaMint]");
+		if(!ANA)
+			titleMainEN.setTextContent("Italian parliamentary corpus ParlaMint-IT, Term "+legislatura+", Sitting "+seduta+" [ParlaMint]");
+		else
+			titleMainEN.setTextContent("Italian parliamentary corpus ParlaMint-IT, Term "+legislatura+", Sitting "+seduta+" [ParlaMint.ana]");
+
 
 		Element  titleSubIT = targetDoc.createElement("title");
 		titleSubIT.setAttribute("type", "sub");
@@ -1973,6 +1980,10 @@ public class MapEmbeddedXML {
 		Element  persNameAgnoloniORCID = targetDoc.createElement("persName");
 		persNameAgnoloniORCID.setTextContent("Tommaso Agnoloni");
 		persNameAgnoloniORCID.setAttribute("ref", orcidAgnoloni);
+		
+		Element  persNameBartoliniORCID = targetDoc.createElement("persName");
+		persNameBartoliniORCID.setTextContent("Roberto Bartolini");
+		//persNameAgnoloniORCID.setAttribute("ref", orcidAgnoloni);
 
 		Element  persNameFrontiniORCID = targetDoc.createElement("persName");
 		persNameFrontiniORCID.setTextContent("Francesca Frontini");
@@ -2032,6 +2043,7 @@ public class MapEmbeddedXML {
 		respProjectEN.setTextContent("Project set-up and methodology");
 
 		respStmtProject.appendChild(persNameAgnoloniORCID);
+		respStmtProject.appendChild(persNameBartoliniORCID);
 		respStmtProject.appendChild(persNameFrontiniORCID);
 		respStmtProject.appendChild(persNameMontemagniORCID);
 		respStmtProject.appendChild(persNameQuochiORCID);

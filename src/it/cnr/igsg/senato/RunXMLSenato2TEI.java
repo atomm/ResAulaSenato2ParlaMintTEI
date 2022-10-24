@@ -23,7 +23,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import it.cnr.igsg.senato.datiSenato.DatiSenato;
-import it.cnr.igsg.senato.resAula.MakeCorpusXML;
+import it.cnr.igsg.senato.resAula.MakeRootXML;
 import it.cnr.igsg.senato.resAula.MapEmbeddedXML;
 
 
@@ -58,18 +58,18 @@ public class RunXMLSenato2TEI {
 		for(String fileName:allFiles) {
 			String idDoc = fileName.substring(0,fileName.indexOf("."));
 			String tsvMeta = resAulaGrid.get(idDoc);
-			buildTeiDoc(mex, fileName,tsvMeta,Config.RES_AULA_TEI_OUTPUT);
+			buildTeiDoc(mex, fileName,tsvMeta,Config.RES_AULA_TEI_OUTPUT, ANA);
 
 		}
 
-		buildTeiCorpus(Config.RES_AULA_TEI_OUTPUT, mex.getTotalTags(), mex.getTotalExtent());
+		buildTeiRoot(Config.RES_AULA_TEI_OUTPUT, mex.getTotalTags(), mex.getTotalExtent());
 
 	}
 
 
 
 
-	private static void buildTeiDoc(MapEmbeddedXML mex, String testFileName, String tsvMeta, String outFolder) {
+	private static void buildTeiDoc(MapEmbeddedXML mex, String testFileName, String tsvMeta, String outFolder, boolean ANA) {
 		
 		Document targetDoc = null;
 
@@ -95,7 +95,10 @@ public class RunXMLSenato2TEI {
 
 		// ParlaMint-IT_2020-05-06_LEG18-Sed-214
 		String TEIid = "ParlaMint-IT_"+year+"-"+month+"-"+day+"-LEG"+legislatura+"-Sed-"+seduta;
-		String TEIid4FileName = TEIid/*+"-"+idDoc*/;
+		
+		if(ANA)
+			TEIid = TEIid+".ana";
+		
 		
 		// subcorpus information goes in TEI/@ana and text/@ana
 		
@@ -158,7 +161,7 @@ public class RunXMLSenato2TEI {
 
 			targetDoc = mex.exportEmbeddedXML(sourceFilePath, targetDoc, body);
 
-			writeXmlFile(targetDoc, outFolder+"/"+year+"/"+TEIid4FileName+".xml");
+			writeXmlFile(targetDoc, outFolder+"/"+year+"/"+TEIid+".xml");
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -243,14 +246,14 @@ public class RunXMLSenato2TEI {
 
 
 
-	private static void buildTeiCorpus(String outFolder, HashMap<String,Integer> totalTags, HashMap<String,Integer> totalExtent) {
+	private static void buildTeiRoot(String outFolder, HashMap<String,Integer> totalTags, HashMap<String,Integer> totalExtent) {
 		Document targetCorpus = null;
 
-		MakeCorpusXML mcx = new MakeCorpusXML(); 
+		MakeRootXML makeRoot = new MakeRootXML(); 
 		//mcx.Test();
 
-		mcx.setTotalExtent(totalExtent);
-		mcx.setTotalTags(totalTags);
+		makeRoot.setTotalExtent(totalExtent);
+		makeRoot.setTotalTags(totalTags);
 
 		List<String> exportedTEIdocs = getExportedTeiDocs();
 
@@ -266,7 +269,11 @@ public class RunXMLSenato2TEI {
 
 			teiCorpus.setAttribute("xmlns", "http://www.tei-c.org/ns/1.0");
 			teiCorpus.setAttribute("xml:lang", "it");
-			teiCorpus.setAttribute("xml:id", "ParlaMint-IT");
+			
+			if(!ANA)
+				teiCorpus.setAttribute("xml:id", "ParlaMint-IT");
+			else
+				teiCorpus.setAttribute("xml:id", "ParlaMint-IT.ana");
 
 			targetCorpus.appendChild(teiCorpus);
 
@@ -275,20 +282,20 @@ public class RunXMLSenato2TEI {
 			teiCorpus.appendChild(teiHeader);
 
 			// fileDesc
-			targetCorpus = mcx.makeFileDesc(targetCorpus, teiHeader, ANA);
+			targetCorpus = makeRoot.makeFileDesc(targetCorpus, teiHeader, ANA);
 
 
 			// encodingDesc  
-			targetCorpus = mcx.makeEncodingDesc(targetCorpus, teiHeader);
+			targetCorpus = makeRoot.makeEncodingDesc(targetCorpus, teiHeader);
 
 
 			Element  profileDesc = targetCorpus.createElement("profileDesc");
 			teiHeader.appendChild(profileDesc);
 
 			// settingDesc
-			targetCorpus = mcx.makeSettingDesc(targetCorpus, profileDesc);
+			targetCorpus = makeRoot.makeSettingDesc(targetCorpus, profileDesc);
 
-			targetCorpus = mcx.makeTextClass(targetCorpus, profileDesc);
+			targetCorpus = makeRoot.makeTextClass(targetCorpus, profileDesc);
 
 			
 
@@ -299,13 +306,13 @@ public class RunXMLSenato2TEI {
 			Element  listOrg = targetCorpus.createElement("listOrg");
 			particDesc.appendChild(listOrg);
 
-			targetCorpus = mcx.exportLegislatures(targetCorpus, /* append to */ listOrg);
-			targetCorpus = mcx.exportGovernments(targetCorpus, /* append to */ listOrg);
-			targetCorpus = mcx.exportGruppi(targetCorpus, /* append to */ listOrg);
-			targetCorpus = mcx.exportRelazioni(targetCorpus, /* append to */ listOrg);
+			targetCorpus = makeRoot.exportLegislatures(targetCorpus, /* append to */ listOrg);
+			targetCorpus = makeRoot.exportGovernments(targetCorpus, /* append to */ listOrg);
+			targetCorpus = makeRoot.exportGruppi(targetCorpus, /* append to */ listOrg);
+			targetCorpus = makeRoot.exportRelazioni(targetCorpus, /* append to */ listOrg);
 
-			targetCorpus = mcx.exportSenatori(targetCorpus, /* append to */ particDesc);
-			targetCorpus = mcx.exportLangUsage(targetCorpus, /* append to */ profileDesc);
+			targetCorpus = makeRoot.exportSenatori(targetCorpus, /* append to */ particDesc);
+			targetCorpus = makeRoot.exportLangUsage(targetCorpus, /* append to */ profileDesc);
 
 			// avoid revisionDesc
 			//targetCorpus = mcx.revisionDesc(targetCorpus, /* append to */ teiHeader);
