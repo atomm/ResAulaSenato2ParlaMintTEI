@@ -1969,6 +1969,7 @@ public class MapEmbeddedXML {
 		// RESP_STMT_CORPUS 
 
 		String orcidAgnoloni ="https://orcid.org/0000-0003-3063-2239";
+		String orcidBartolini ="https://orcid.org/0000-0002-6829-6309";
 		String orcidFrontini ="https://orcid.org/0000-0002-8126-6294";
 		String orcidMontemagni ="https://orcid.org/0000-0002-2953-8619";
 		String orcidVenturi ="https://orcid.org/0000-0001-5849-0979";
@@ -1983,7 +1984,7 @@ public class MapEmbeddedXML {
 		
 		Element  persNameBartoliniORCID = targetDoc.createElement("persName");
 		persNameBartoliniORCID.setTextContent("Roberto Bartolini");
-		//persNameAgnoloniORCID.setAttribute("ref", orcidAgnoloni);
+		persNameBartoliniORCID.setAttribute("ref", orcidBartolini);
 
 		Element  persNameFrontiniORCID = targetDoc.createElement("persName");
 		persNameFrontiniORCID.setTextContent("Francesca Frontini");

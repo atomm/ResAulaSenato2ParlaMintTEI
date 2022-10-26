@@ -740,6 +740,8 @@ public class MakeRootXML {
 		// RESP_STMT_CORPUS (NEW)
 
 		String orcidAgnoloni ="https://orcid.org/0000-0003-3063-2239";
+		String orcidBartolini ="https://orcid.org/0000-0002-6829-6309";
+
 		String orcidFrontini ="https://orcid.org/0000-0002-8126-6294";
 		String orcidMontemagni ="https://orcid.org/0000-0002-2953-8619";
 		String orcidVenturi ="https://orcid.org/0000-0001-5849-0979";
@@ -754,7 +756,7 @@ public class MakeRootXML {
 		
 		Element  persNameBartoliniORCID = targetCorpus.createElement("persName");
 		persNameBartoliniORCID.setTextContent("Roberto Bartolini");
-		//persNameAgnoloniORCID.setAttribute("ref", orcidAgnoloni);
+		persNameBartoliniORCID.setAttribute("ref", orcidBartolini);
 
 		Element  persNameFrontiniORCID = targetCorpus.createElement("persName");
 		persNameFrontiniORCID.setTextContent("Francesca Frontini");
