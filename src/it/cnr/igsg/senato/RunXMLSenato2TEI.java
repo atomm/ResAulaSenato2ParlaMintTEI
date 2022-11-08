@@ -31,7 +31,7 @@ public class RunXMLSenato2TEI {
 
 	// TRUE for  ANA version Resp Statements
 	// Switch PLAIN or ANA versions
-	private static boolean ANA = true;
+	private static boolean ANA = false;
 	
 	
 	private static HashMap<String,String> resAulaGrid;
@@ -94,8 +94,9 @@ public class RunXMLSenato2TEI {
 
 
 		// ParlaMint-IT_2020-05-06_LEG18-Sed-214
-		String TEIid = "ParlaMint-IT_"+year+"-"+month+"-"+day+"-LEG"+legislatura+"-upper"+"-Sed-"+seduta;
-		
+		//String TEIid = "ParlaMint-IT_"+year+"-"+month+"-"+day+"-LEG"+legislatura+"-upper"+"-Sed-"+seduta;
+		String TEIid = "ParlaMint-IT_"+year+"-"+month+"-"+day+"-LEG"+legislatura+"-Senato-sed-"+seduta;
+
 		if(ANA)
 			TEIid = TEIid+".ana";
 		
@@ -161,7 +162,15 @@ public class RunXMLSenato2TEI {
 
 			targetDoc = mex.exportEmbeddedXML(sourceFilePath, targetDoc, body);
 
-			writeXmlFile(targetDoc, outFolder+"/"+year+"/"+TEIid+".xml");
+			
+			String fileName = outFolder+"/"+year+"/"+TEIid+".xml";
+			
+			// FIXME - per il momento - per processing ILC non aggiungere estensione .ana
+			if(ANA)
+				fileName = fileName.replace(".ana","");
+			
+			writeXmlFile(targetDoc, fileName);
+			
 
 		} catch (Exception ex) {
 			ex.printStackTrace();

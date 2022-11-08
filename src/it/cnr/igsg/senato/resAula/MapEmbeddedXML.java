@@ -1922,18 +1922,18 @@ public class MapEmbeddedXML {
 		titleMainIT.setAttribute("type", "main");
 		titleMainIT.setAttribute("xml:lang", "it");
 		if(!ANA)
-			titleMainIT.setTextContent("Corpus parlamentare italiano ParlaMint-IT, Legislatura "+legislatura+", Seduta "+seduta+" [ParlaMint]");
+			titleMainIT.setTextContent("Corpus parlamentare italiano ParlaMint-IT, Legislatura "+legislatura+", Seduta "+seduta+" Senato [ParlaMint]");
 		else
-			titleMainIT.setTextContent("Corpus parlamentare italiano ParlaMint-IT, Legislatura "+legislatura+", Seduta "+seduta+" [ParlaMint.ana]");
+			titleMainIT.setTextContent("Corpus parlamentare italiano ParlaMint-IT, Legislatura "+legislatura+", Seduta "+seduta+" Senato [ParlaMint.ana]");
 
 
 		Element  titleMainEN = targetDoc.createElement("title");
 		titleMainEN.setAttribute("type", "main");
 		titleMainEN.setAttribute("xml:lang", "en");
 		if(!ANA)
-			titleMainEN.setTextContent("Italian parliamentary corpus ParlaMint-IT, Term "+legislatura+", Sitting "+seduta+" [ParlaMint]");
+			titleMainEN.setTextContent("Italian parliamentary corpus ParlaMint-IT, Term "+legislatura+", Sitting "+seduta+" Senate [ParlaMint]");
 		else
-			titleMainEN.setTextContent("Italian parliamentary corpus ParlaMint-IT, Term "+legislatura+", Sitting "+seduta+" [ParlaMint.ana]");
+			titleMainEN.setTextContent("Italian parliamentary corpus ParlaMint-IT, Term "+legislatura+", Sitting "+seduta+" Senate [ParlaMint.ana]");
 
 
 		Element  titleSubIT = targetDoc.createElement("title");
