@@ -1589,7 +1589,7 @@ public class MakeRootXML {
 
 		
 		Element  catRef = targetCorpus.createElement("catRef");
-		catRef.setAttribute("scheme", "#parla.legislature");
+		catRef.setAttribute("scheme", "#ParlaMint-taxonomy-parla.legislature");
 		catRef.setAttribute("target", "#parla.bi #parla.upper");
 		
 		textClass.appendChild(catRef);
