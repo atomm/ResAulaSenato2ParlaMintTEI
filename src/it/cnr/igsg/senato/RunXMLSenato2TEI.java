@@ -130,7 +130,7 @@ public class RunXMLSenato2TEI {
 			TEI.setAttribute("xml:lang", "it");
 			TEI.setAttribute("xml:id", TEIid);
 			// #parla.meeting.regular or #parla.sitting
-			TEI.setAttribute("ana", "#parla.meeting.regular "+corpusAttribute);
+			TEI.setAttribute("ana", "#parla.sitting "+corpusAttribute);
 			targetDoc.appendChild(TEI);
 
 			Element  teiHeader = targetDoc.createElement("teiHeader");

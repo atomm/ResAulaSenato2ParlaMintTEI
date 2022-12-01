@@ -125,7 +125,8 @@ public class MakeRootXML {
 			opposition_letta1_1.setAttribute("active",getIdGruppiList(opposition_letta1_groups_1));
 			opposition_letta1_1.setAttribute("from","2013-04-28");
 			opposition_letta1_1.setAttribute("to", "2013-11-19");
-			opposition_letta1_1.setAttribute("passive", "#GOV.LETTA.1");
+			opposition_letta1_1.setAttribute("passive", "#GOV");
+			opposition_letta1_1.setAttribute("ana", "#GOV.LETTA.1");
 			listRelation.appendChild(opposition_letta1_1);
 		
 		String[] opposition_letta1_groups_2= {"Forza Italia-Il Popolo della Libertà XVII Legislatura", "Lega Nord e Autonomie", "Movimento 5 Stelle"};
@@ -135,7 +136,8 @@ public class MakeRootXML {
 			opposition_letta1_2.setAttribute("active",getIdGruppiList(opposition_letta1_groups_2));
 			opposition_letta1_2.setAttribute("from","2013-11-20");
 			opposition_letta1_2.setAttribute("to", "2014-02-21");
-			opposition_letta1_2.setAttribute("passive", "#GOV.LETTA.1");
+			opposition_letta1_2.setAttribute("passive", "#GOV");
+			opposition_letta1_2.setAttribute("ana", "#GOV.LETTA.1");
 			listRelation.appendChild(opposition_letta1_2);
 		
 		// RENZI.1
@@ -168,7 +170,8 @@ public class MakeRootXML {
 			opposition_renzi1_1.setAttribute("active",getIdGruppiList(opposition_renzi1_groups_1));
 			opposition_renzi1_1.setAttribute("from","2014-02-22");
 			opposition_renzi1_1.setAttribute("to", "2016-12-12");
-			opposition_renzi1_1.setAttribute("passive", "#GOV.RENZI.1");
+			opposition_renzi1_1.setAttribute("passive", "#GOV");
+			opposition_renzi1_1.setAttribute("ana", "#GOV.RENZI.1");
 			listRelation.appendChild(opposition_renzi1_1);
 		
 		
@@ -211,7 +214,8 @@ public class MakeRootXML {
 			opposition_gentiloni1_1.setAttribute("active",getIdGruppiList(opposition_gentiloni1_groups_1));
 			opposition_gentiloni1_1.setAttribute("from","2016-12-12");
 			opposition_gentiloni1_1.setAttribute("to", "2017-02-27");
-			opposition_gentiloni1_1.setAttribute("passive", "#GOV.GENTILONI.1");
+			opposition_gentiloni1_1.setAttribute("passive", "#GOV");
+			opposition_gentiloni1_1.setAttribute("ana", "#GOV.GENTILONI.1");
 			listRelation.appendChild(opposition_gentiloni1_1);
 	
 		
@@ -242,7 +246,8 @@ public class MakeRootXML {
 			opposition_gentiloni1_2.setAttribute("active",getIdGruppiList(opposition_gentiloni1_groups_2));
 			opposition_gentiloni1_2.setAttribute("from","2017-02-28");
 			opposition_gentiloni1_2.setAttribute("to", "2018-03-22");
-			opposition_gentiloni1_2.setAttribute("passive", "#GOV.GENTILONI.1");
+			opposition_gentiloni1_2.setAttribute("passive", "#GOV");
+			opposition_gentiloni1_2.setAttribute("ana", "#GOV.GENTILONI.1");
 			listRelation.appendChild(opposition_gentiloni1_2);
 		
 			
@@ -264,7 +269,8 @@ public class MakeRootXML {
 			opposition_gentiloni1_4.setAttribute("active",getIdGruppiList(opposition_gentiloni1_groups_4));
 			opposition_gentiloni1_4.setAttribute("from","2018-03-23");
 			opposition_gentiloni1_4.setAttribute("to", "2018-06-01");
-			opposition_gentiloni1_4.setAttribute("passive", "#GOV.GENTILONI.1");
+			opposition_gentiloni1_4.setAttribute("passive", "#GOV");
+			opposition_gentiloni1_4.setAttribute("ana", "#GOV.GENTILONI.1");
 			listRelation.appendChild(opposition_gentiloni1_4);
 		
 		
@@ -296,7 +302,8 @@ public class MakeRootXML {
 			opposition_conte1_1.setAttribute("active",getIdGruppiList(opposition_conte1_groups_1));
 			opposition_conte1_1.setAttribute("from","2018-06-01");
 			opposition_conte1_1.setAttribute("to", "2019-09-05");
-			opposition_conte1_1.setAttribute("passive", "#GOV.CONTE.1");
+			opposition_conte1_1.setAttribute("passive", "#GOV");
+			opposition_conte1_1.setAttribute("ana", "#GOV.CONTE.1");
 			listRelation.appendChild(opposition_conte1_1);
 		
 		// CONTE.2
@@ -328,7 +335,8 @@ public class MakeRootXML {
 			opposition_conte2_1.setAttribute("active",getIdGruppiList(opposition_conte2_groups_1));
 			opposition_conte2_1.setAttribute("from","2019-09-05");
 			opposition_conte2_1.setAttribute("to", "2019-12-10");
-			opposition_conte2_1.setAttribute("passive", "#GOV.CONTE.2");
+			opposition_conte2_1.setAttribute("passive", "#GOV");
+			opposition_conte2_1.setAttribute("ana", "#GOV.CONTE.2");
 			listRelation.appendChild(opposition_conte2_1);
 		
 		
@@ -340,7 +348,8 @@ public class MakeRootXML {
 			opposition_conte2_2.setAttribute("active",getIdGruppiList(opposition_conte2_groups_2));
 			opposition_conte2_2.setAttribute("from","2019-12-11");
 			opposition_conte2_2.setAttribute("to", "2021-02-12");
-			opposition_conte2_2.setAttribute("passive", "#GOV.CONTE.2");
+			opposition_conte2_2.setAttribute("passive", "#GOV");
+			opposition_conte2_2.setAttribute("ana", "#GOV.CONTE.2");
 			listRelation.appendChild(opposition_conte2_2);
 
 			
@@ -362,7 +371,8 @@ public class MakeRootXML {
 			opposition_draghi1_1.setAttribute("active",getIdGruppiList(opposition_draghi1_groups_1));
 			opposition_draghi1_1.setAttribute("from","2021-02-13");
 			opposition_draghi1_1.setAttribute("to", "2022-10-22");
-			opposition_draghi1_1.setAttribute("passive", "#GOV.DRAGHI.1");
+			opposition_draghi1_1.setAttribute("passive", "#GOV");
+			opposition_draghi1_1.setAttribute("ana", "#GOV.DRAGHI.1");
 			listRelation.appendChild(opposition_draghi1_1);
 
 		appendTo.appendChild(listRelation);
@@ -1352,10 +1362,12 @@ public class MakeRootXML {
 		UtilDom.insertAfter(regional,national);
 		UtilDom.insertAfter(local,regional);
 
-
+		// parla.organization
 
 		Element organization_cat = getTaxonomyCategory(targetCorpus,"parla.organization","Organizzazione","","Organization","");
 
+		// parla.chambers
+		
 		Element parla_upper = getTaxonomyCategory(targetCorpus,"parla.upper","Senato della Repubblica","","Upper house","");
 		Element parla_lower = getTaxonomyCategory(targetCorpus,"parla.lower","Camera dei Deputati","","Lower house","");
 		Element parla_bi = getTaxonomyCategory(targetCorpus,"parla.bi","Bicameralismo","","Bicameralism","");
@@ -1381,21 +1393,72 @@ public class MakeRootXML {
 
 		Node organization_cat_CatDesc = organization_cat.getLastChild();
 		UtilDom.insertAfter(parla_chambers, organization_cat_CatDesc);
+		
+		
+		// parla.commitee
+		
+		Element standing_commitee = getTaxonomyCategory(targetCorpus,"parla.committee.standing","Commissione permanente","","Standing committee","");
+		Element special_committee = getTaxonomyCategory(targetCorpus,"parla.committee.special","Commissione speciale","","Special committee","");
+		Element committe_inquiry = getTaxonomyCategory(targetCorpus,"parla.committee.inquiry","Commissione di inchiesta","","Committee of inquiry","");
+		
+		Element parla_committee = getTaxonomyCategory(targetCorpus,"parla.committee","Commissione","","Committee","");
+		Node parla_committee_CatDesc = parla_committee.getLastChild();
+		
+		UtilDom.insertAfter(standing_commitee, parla_committee_CatDesc);
+		UtilDom.insertAfter(special_committee, standing_commitee);
+		UtilDom.insertAfter(committe_inquiry, special_committee);
+		
+		
+		// CHECK HERE append
+	    organization_cat_CatDesc = organization_cat.getLastChild();
+		UtilDom.insertAfter(parla_committee, organization_cat_CatDesc);
+		
 
-
+		// parla.term
+		
 		Element term_cat = getTaxonomyCategory(targetCorpus,"parla.term","Legislatura",": mandato del parlamento fra elezioni politiche generali.","Legislative period",": term of the parliament between general elections.");
 
 		Element parla_sitting = getTaxonomyCategory(targetCorpus,"parla.sitting","Seduta","","Sitting",": sitting day");
 		Element parla_meeting = getTaxonomyCategory(targetCorpus,"parla.meeting","Riunione","","Meeting",": Each meeting may be a separate session or part of a group of meetings constituting a session. The session/meeting may take one or more days.");
 
-		// FIXME omesso meeting-types <category xml:id="parla.meeting-types">
 
 		Element parla_session = getTaxonomyCategory(targetCorpus,"parla.session","Sessione","","Legislative session",": the period of time in which a legislature is convened for purpose of lawmaking, usually being one of two or more smaller divisions of the entire time between two elections. A session is a meeting or series of connected meetings devoted to a single order of business, program, agenda, or announced purpose.");
 
-		Element parla_meeting_regular = getTaxonomyCategory(targetCorpus,"parla.meeting.regular","Seduta ordinaria","","Regular meeting","");
+		
+		// parla.meeting-types
+		
+		
 		Element parla_meeting_types = getTaxonomyCategory(targetCorpus,"parla.meeting-types","Tipi di seduta","","Types of meetings","");
+		
+		Element parla_meeting_regular = getTaxonomyCategory(targetCorpus,"parla.meeting.regular","Seduta ordinaria","","Regular meeting","");
+		Element parla_meeting_special = getTaxonomyCategory(targetCorpus,"parla.meeting.special","Seduta speciale","","Special meeting","");
+		
+		Element parla_meeting_extraordinary = getTaxonomyCategory(targetCorpus,"parla.meeting.extraordinary","Seduta straordinaria","","Extraordinary meeting","");
+		Element parla_meeting_urgent = getTaxonomyCategory(targetCorpus,"parla.meeting.urgent","Seduta urgente","","Urgent meeting","");
+		Element parla_meeting_ceremonial = getTaxonomyCategory(targetCorpus,"parla.meeting.ceremonial","Seduta cerimoniale","","Ceremonial meeting","");
+		Element parla_meeting_commemorative = getTaxonomyCategory(targetCorpus,"parla.meeting.commemorative","Seduta commemorativa","","Commemorative meeting","");
+		Element parla_meeting_opinions = getTaxonomyCategory(targetCorpus,"parla.meeting.opinions","Presentazione pubblica di opinioni","","Public presentation of opinions","");
+
+		// insert meeting.special children
+		Node parla_meeting_special_CatDesc = parla_meeting_special.getLastChild();
+		UtilDom.insertAfter(parla_meeting_extraordinary, parla_meeting_special_CatDesc);
+		UtilDom.insertAfter(parla_meeting_urgent, parla_meeting_extraordinary);
+		UtilDom.insertAfter(parla_meeting_ceremonial, parla_meeting_urgent);
+		UtilDom.insertAfter(parla_meeting_commemorative, parla_meeting_ceremonial);
+		UtilDom.insertAfter(parla_meeting_opinions, parla_meeting_commemorative);
+		
+		Element parla_meeting_continued = getTaxonomyCategory(targetCorpus,"parla.meeting.continued","Proseguimento di seduta","","Continued meeting","");
+		Element parla_meeting_public = getTaxonomyCategory(targetCorpus,"parla.meetining.public","Seduta pubblica","","Public meeting","");
+		Element parla_meeting_executive = getTaxonomyCategory(targetCorpus,"parla.meeting.executive","Seduta esecutiva","","Executive meeting","");
+
+		
 		Node parla_meeting_types_CatDesc = parla_meeting_types.getLastChild();
 		UtilDom.insertAfter(parla_meeting_regular, parla_meeting_types_CatDesc);
+		UtilDom.insertAfter(parla_meeting_special, parla_meeting_regular);
+		UtilDom.insertAfter(parla_meeting_continued, parla_meeting_special);
+		UtilDom.insertAfter(parla_meeting_public, parla_meeting_continued);
+		UtilDom.insertAfter(parla_meeting_executive, parla_meeting_public);
+
 
 
 		Node parla_meeting_CatDesc = parla_meeting.getLastChild();
