@@ -21,6 +21,7 @@ public class MapEmbeddedXML {
 	int uId = 1;
 	int segId = 1;
 
+	String currentPresidentId = "";
 	
 	DatiSenato datiSenato;
 	
@@ -149,6 +150,11 @@ public class MapEmbeddedXML {
 		//
 		// TARGET
 		//
+		
+				// FIXME: update currentPresidentId
+				String idSpeaker = UtilDom.getAttributeValueAsString(presidenza, "PROGR_PERS");
+				if(idSpeaker!=null)
+					currentPresidentId = datiSenato.getIdSenatore2Readable().get(idSpeaker);
 
 				ArrayList<Node> list = new ArrayList<Node>();
 				
@@ -158,7 +164,7 @@ public class MapEmbeddedXML {
 
 				
 				Element note = target.createElement("note");
-				note.setAttribute("type", "president");
+				note.setAttribute("type", "speaker");
 				String text = cleanText(UtilDom.getRecursiveTextNode(presidenza));
 				if(text.trim().length()>0)
 					note.setTextContent(text);
@@ -314,6 +320,8 @@ public class MapEmbeddedXML {
 		return target;
 	}
 	
+
+
 	
 	
 	private Document processIntervento(Node intervento, Document target, Element debatesection) {
@@ -329,7 +337,8 @@ public class MapEmbeddedXML {
 		
 		String speakerPrefix = datiSenato.getSpeakerPrefix(idSpeaker);
 
-		utterance.setAttribute("who", "#"+datiSenato.getIdSenatore2Readable().get(idSpeaker)/*speakerPrefix+"."+idSpeaker*/);
+		String parlaIdSpeaker = datiSenato.getIdSenatore2Readable().get(idSpeaker);
+		utterance.setAttribute("who", "#"+parlaIdSpeaker);
 		String uttId = TEIid+".u"+uId;
 		utterance.setAttribute("xml:id",uttId);
 		uId+=1;
@@ -339,7 +348,10 @@ public class MapEmbeddedXML {
 		NodeList nl = intervento.getChildNodes();
 		Node lastInsertedNode = null;
 		
+		
 		ArrayList<Node> presidenzaChange =null;
+		
+		
 		
 		for(int i=0;i<nl.getLength();i++) {
 			Node currentNode = nl.item(i);
@@ -354,6 +366,7 @@ public class MapEmbeddedXML {
 						oratoreText = cleanText(oratoreText+" "+gruppo);
 					}
 					oratoreNote.setTextContent(oratoreText);
+					debatesection.appendChild(oratoreNote);
 				}
 			}else if(currentNode.getNodeName().equalsIgnoreCase("qualifica")) {
 				String qualificaText = UtilDom.getText(currentNode);
@@ -363,6 +376,7 @@ public class MapEmbeddedXML {
 					sourceRoleText = qualificaText;
 					normalizedRole = normalizeRoleXSD(sourceRoleText,speakerPrefix);
 					qualificaNote.setTextContent(sourceRoleText);
+					debatesection.appendChild(qualificaNote);
 				}
 //			      <note type="speaker">FRANCESCHINI</note>
 //			      <note type="role">ministro per i beni e le attività culturali e per il turismo</note>
@@ -382,36 +396,145 @@ public class MapEmbeddedXML {
 					String content = currentNode.getTextContent().trim();
 						
 					String[] paragraphs = content.split("\\.\n");
+										
 					for(int count = 0; count < paragraphs.length; count ++) {
 						if(paragraphs[count].trim().length()>0) {
 							
+												
 							String textContent = cleanText(paragraphs[count]);
+							
+							
 							
 							if(count<paragraphs.length-1)
 								textContent = textContent+".";
 							
-							Node nodeToInsert;
-							if(textContent.startsWith("PRESIDENTE") && textContent.toLowerCase().indexOf("ne ha facoltà")!=-1) {
+							
+							
+//							<<<<<<<<<<<<<
+							
+							// QUI SI GENERANO MOLTE NOTE di testo del tipo "Domando di parlare." o "PRESIDENTE. Ne ha facoltà."
+							
+//							if(textContent.startsWith("PRESIDENTE") && textContent.toLowerCase().indexOf("ne ha facoltà")!=-1) {
+//								Element note = target.createElement("note");
+//								note.setTextContent(textContent);
+//								nodeToInsert = note;
+//								//System.err.println("SKIP: "+textContent);
+//							}else if(textContent.startsWith("Domando di parlare") ) {
+//								//System.err.println("SKIP: "+textContent);
+//								Element note = target.createElement("note");
+//								note.setTextContent(textContent);
+//								nodeToInsert = note;
+//							}else {
+//								Element seg = target.createElement("seg");
+//								seg.setAttribute("xml:id", TEIid+".seg"+segId);
+//								segId+=1;
+//								seg.setTextContent(textContent);
+//								nodeToInsert = seg;
+//							}
+//							if(textContent.trim().length()>0 /*&& !isPunto(textContent)*/) {
+//								utterance.appendChild(nodeToInsert);
+//								lastInsertedNode = nodeToInsert;
+//							}
+							
+					
+//							>>>>>>>>>>>>>>>
+
+							
+							// QUI SI GENERANO MOLTE NOTE di testo del tipo "Domando di parlare." o "PRESIDENTE. Ne ha facoltà."
+							
+						
+//							Element seg = target.createElement("seg");
+//							seg.setAttribute("xml:id", TEIid+".seg"+segId);
+//							segId+=1;
+//							seg.setTextContent(textContent);
+//							nodeToInsert = seg;
+//							
+//							if(textContent.trim().length()>0 /*&& !isPunto(textContent)*/) {
+//								utterance.appendChild(nodeToInsert);
+//								lastInsertedNode = nodeToInsert;
+//							}
+//							
+//							<<<<<<<<<<<<<<<<<<
+							
+							
+							// PROVA split utterance: 
+							
+							//if(textContent.startsWith("PRESIDENTE") && textContent.toLowerCase().indexOf("ne ha facoltà")!=-1) {
+							
+							//FIXME se erano già interventi di PRESIDENTE e non PRESIDENTE che spezza un intervento, allora fa casino (DUPLICA)
+							
+							if(!normalizedRole.equalsIgnoreCase("chair") && (textContent.startsWith("PRESIDENTE") || textContent.toLowerCase().endsWith("ne ha facoltà.")  || textContent.toLowerCase().startsWith("ha facoltà di intervenire"))) {
+
+								if(textContent.startsWith("PRESIDENTE"))
+									textContent = textContent.substring(textContent.indexOf("PRESIDENTE")+10,textContent.length()).trim();
+								textContent = cleanText(textContent);
+								
+														
+								// 1) CHIUDO UTTERANCE PRECEDENTE
+								// appendi <u> solo se ha almeno un figlio (seg o kinesic..)
+								if(utterance.hasChildNodes() ) { 
+									utterance.setAttribute("ana", "#"+normalizedRole);
+									debatesection.appendChild(utterance);
+									//uId+=1;
+								}
+								else {
+									uId-=1;
+								}
+								
+								// 2) NUOVO inter-utterance PRESIDENTE
+								// FIXME 
+								// * recupera current presidente
+								// metti una funzione getUtteranceNode
+								// Togli PRESIDENTE da PRESIDENTE - Ne ha facoltà
+								// Aggiungi nota PRESIDENTE
+								// Vedi molti altri casi di: Domando di parlare
+								// Vedi i casini introdotti da Wrong LastInsertedNode
+								// Vedi altri problemi
+								Element inter_utterance = target.createElement("u");
+								inter_utterance.setAttribute("who", "#"+currentPresidentId);
+								inter_utterance.setAttribute("xml:id",TEIid+".u"+uId);
+								uId+=1;
+								inter_utterance.setAttribute("ana", "#chair");
+								
+								Element seg = target.createElement("seg");
+								seg.setAttribute("xml:id", TEIid+".seg"+segId);
+								segId+=1;
+								seg.setTextContent(textContent);
+								
+								inter_utterance.appendChild(seg);
+								lastInsertedNode = seg;
+								
 								Element note = target.createElement("note");
-								note.setTextContent(textContent);
-								nodeToInsert = note;
-								//System.err.println("SKIP: "+textContent);
-							}else if(textContent.startsWith("Domando di parlare") ) {
-								//System.err.println("SKIP: "+textContent);
-								Element note = target.createElement("note");
-								note.setTextContent(textContent);
-								nodeToInsert = note;
+								note.setTextContent("PRESIDENTE");
+								note.setAttribute("type", "speaker");								
+								debatesection.appendChild(note);
+								debatesection.appendChild(inter_utterance);
+
+								
+								//3 RIPARTO con un nuovo utterance (ma non è detto che PRESIDENTE spezzi, a volte è in fondo. Quindi se il nuovo utterance non ha figli non lo appendere a debate)
+								utterance = target.createElement("u");
+								utterance.setAttribute("who", "#"+datiSenato.getIdSenatore2Readable().get(idSpeaker)/*speakerPrefix+"."+idSpeaker*/);
+								uttId = TEIid+".u"+uId;
+								utterance.setAttribute("xml:id",uttId);
+								uId+=1;
+								sourceRoleText ="";
+								normalizedRole ="regular";
+								
+							
 							}else {
 								Element seg = target.createElement("seg");
 								seg.setAttribute("xml:id", TEIid+".seg"+segId);
 								segId+=1;
 								seg.setTextContent(textContent);
-								nodeToInsert = seg;
-							}
-							if(textContent.trim().length()>0 /*&& !isPunto(textContent)*/) {
-								utterance.appendChild(nodeToInsert);
-								lastInsertedNode = nodeToInsert;
-							}
+								
+								if(textContent.trim().length()>0 /*&& !discardText(textContent)*//*&& !isPunto(textContent)*/) {
+									utterance.appendChild(seg);
+									lastInsertedNode = seg;
+								}else {
+									segId-=1;
+								}
+								
+							}					
 						}
 					}
 				}
@@ -567,16 +690,26 @@ public class MapEmbeddedXML {
 			}
 		}
 		
-		utterance.setAttribute("ana", "#"+normalizedRole);
 
+		if(normalizedRole.equalsIgnoreCase("chair")) {
+			// SAVE LAST PRESIDENT (globally)
+			currentPresidentId = parlaIdSpeaker;			
+		}
 		
-		if(oratoreNote!=null)
-			debatesection.appendChild(oratoreNote);
-		if(qualificaNote !=null)
-			debatesection.appendChild(qualificaNote);
-
 		
-		debatesection.appendChild(utterance);
+//		if(oratoreNote!=null)
+//			debatesection.appendChild(oratoreNote);
+//		if(qualificaNote !=null)
+//			debatesection.appendChild(qualificaNote);
+		
+		
+		// appendi <u> solo se ha almeno un figlio (seg o kinesic..)
+		if(utterance.hasChildNodes()) { 
+			utterance.setAttribute("ana", "#"+normalizedRole);
+			debatesection.appendChild(utterance);
+		}else {
+			uId-=1;
+		}
 
 		// INTERMEZZO FRA INTERVENTI <u> CON NOTA SU NUOVA PRESIDENZA
 		// LA NOTA SU NUOVA PRESIDENZA VIENE MESSA IN CODA ALL'Utterance
@@ -625,7 +758,9 @@ public class MapEmbeddedXML {
 		return kinesicContent.trim();
 	}
 	
-	
+	private boolean discardText(String textContent) {
+		return textContent.equals(".") || textContent.equals(")") || textContent.length()<3;
+	}
 	
 	private Element postprocessDebateSection(Element debatesection) {
 		
@@ -663,7 +798,7 @@ public class MapEmbeddedXML {
 						}
 						
 						// POST PROCESS - rimozione punti, virgole, ).
-						if(textContent.equals(".") || textContent.equals(")") || textContent.length()<4) {							
+						if(discardText(textContent)) {							
 							// per ora lo rimuovo brutalmente
 							removeList.add(currUttChild);
 							//System.out.println("LOSING\t"+textContent+ "\t"+TEIid+ " "+UtilDom.getAttributeValueAsString(currUttChild, "xml:id"));
@@ -1183,7 +1318,8 @@ public class MapEmbeddedXML {
 							// FIXME i node as note - unknown (andrebbe fatto il merge come in intervento)
 							//note.setAttribute("type", "note");
 							note.setTextContent(cleanText(curr_ddlChild.getTextContent()));
-							ddlSection.appendChild(note);
+							if(note.getTextContent().trim().length()>1)
+								ddlSection.appendChild(note);
 						}
 					}else {
 						System.err.println(TEIid+ "  UNRECOGNIZED NODE IN DDLBL-DDL.."+curr_ddlChild.getNodeName()+"--- "+UtilDom.getText(curr_ddlChild));
@@ -1229,7 +1365,8 @@ public class MapEmbeddedXML {
 					// HEURISTIC  - note time
 					if(note.getTextContent().startsWith("(ore") && note.getTextContent().length()<15)
 						note.setAttribute("type", "time");
-					ddlSection.appendChild(note);
+					if(note.getTextContent().trim().length()>1)
+						ddlSection.appendChild(note);
 				}
 			}
 			// POTREI CREARE ALTRE NOTE
@@ -1244,7 +1381,8 @@ public class MapEmbeddedXML {
 					note.setTextContent(cleanText(currNode.getTextContent()));
 					if(note.getTextContent().startsWith("(ore") && note.getTextContent().length()<15)
 						note.setAttribute("type", "time");
-					ddlSection.appendChild(note);
+					if(note.getTextContent().trim().length()>1)
+						ddlSection.appendChild(note);
 				}
 			}
 			else if(currNode.getNodeName().equalsIgnoreCase("table")) {
